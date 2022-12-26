@@ -757,6 +757,8 @@ public class CruelSimpleton : MonoBehaviour {
         {
             rule7Answer = FindRule7Answer();
 
+            Debug.LogFormat("[Cruel Simpleton {0}] Pressed section {1}. Expected section {2} (Rule 7)", ModuleId, sectionNum, rule7Answer);
+
             if (sectionNum == rule7Answer)
             {
                 if (unicorn && unicornRuleNum == 7)
@@ -780,7 +782,6 @@ public class CruelSimpleton : MonoBehaviour {
             else
             {
                 GetComponent<KMBombModule>().HandleStrike();
-                Debug.Log("Strike! Pressed section " + sectionNum + " insetead of section " + rule7Answer);
             }
 
             return;
