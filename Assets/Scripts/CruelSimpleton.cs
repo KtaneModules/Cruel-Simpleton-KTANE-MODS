@@ -140,6 +140,8 @@ public class CruelSimpleton : MonoBehaviour {
 
         timeOffset = 2;
 
+        ModuleSolved = false;
+
         initialBombTime = Bomb.GetTime();
 
         buttonPressedNum = 0;
@@ -179,6 +181,8 @@ public class CruelSimpleton : MonoBehaviour {
         {
             unicornRuleNum = 1;
             rule1Answer = FindRule1Answer();
+            
+            Debug.LogFormat("[Cruel Simpleton #{0}] Expecting: {1}", ModuleId, string.Join(" ", rule1Answer.Select(e => e.ToString()).ToArray()));
 
             rule3Answer = FindRule3Answer();
 
@@ -314,6 +318,7 @@ public class CruelSimpleton : MonoBehaviour {
 
                         unicornRuleNum++;
                         Debug.LogFormat("[Cruel Simpleton #{0}] Stage cleared. Now on stage {1}", ModuleId, unicornRuleNum);
+                        Debug.LogFormat("[Cruel Simpleton #{0}] Expecting: {1}", ModuleId, rule3Answer);
 
                     }
 
@@ -379,6 +384,7 @@ public class CruelSimpleton : MonoBehaviour {
                         //play clear stage sound
                         unicornRuleNum++;
                         Debug.LogFormat("[Cruel Simpleton #{0}] Stage cleared. Now on stage {1}", ModuleId, unicornRuleNum);
+                        Debug.LogFormat("[Cruel Simpleton #{0}] Expecting button to be held for 8 seconds", ModuleId);
                     }
 
                     else
@@ -634,7 +640,6 @@ public class CruelSimpleton : MonoBehaviour {
                     //play stage clear sound
                     unicornRuleNum++;
                     Debug.LogFormat("[Cruel Simpleton #{0}] Stage cleared. Now on stage {1}", ModuleId, unicornRuleNum);
-                    Debug.LogFormat("[Cruel Simpleton #{0}] Stage cleared. Now on stage {1}", ModuleId, unicornRuleNum);
                 }
 
                 else
@@ -699,7 +704,7 @@ public class CruelSimpleton : MonoBehaviour {
                 //play clear stage sound
                 unicornRuleNum++;
                 Debug.LogFormat("[Cruel Simpleton #{0}] Stage cleared. Now on stage {1}", ModuleId, unicornRuleNum);
-
+                Debug.LogFormat("[Cruel Simpleton #{0}] Expecting button to be pressed 69 times", ModuleId);
             }
 
             else
@@ -1311,7 +1316,7 @@ public class CruelSimpleton : MonoBehaviour {
                     //play stage clear sound
                     unicornRuleNum++;
                     Debug.LogFormat("[Cruel Simpleton #{0}] Stage cleared. Now on stage {1} ", ModuleId, unicornRuleNum);
-
+                    Debug.LogFormat("[Cruel Simpleton #{0}] Expecting: -... --- -...", ModuleId);
                 }
 
                 else
