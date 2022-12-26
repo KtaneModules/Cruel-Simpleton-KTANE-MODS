@@ -466,15 +466,8 @@ public class CruelSimpleton : MonoBehaviour {
     private bool Rule5()
     {
         //there is a simpleton
-
-        foreach (string name in Bomb.GetModuleNames())
-        {
-            Debug.Log(name);
-        }
-
         if (!Bomb.GetModuleNames().Where(name => name.ToUpper() == "THE SIMPLETON").Any())
         {
-            Debug.LogError("simpleton not decteded");
             return false;
         }
 
@@ -622,12 +615,16 @@ public class CruelSimpleton : MonoBehaviour {
 
         if (rule6Active || unicorn6Active)
         {
+            int minutes = (int)Bomb.GetTime() / 60;
             int seconds = (int)Bomb.GetTime() % 60;
+            string time = minutes + ":" + seconds;
+            
+
+            Debug.LogFormat("[Cruel Simpleton {0}] Button was pressed at {1}", ModuleId, time);
 
             if (seconds % 10 != 0)
             {
                 GetComponent<KMBombModule>().HandleStrike();
-                Debug.Log("Strike! Pressed the button when the seconds were " + seconds + ", which is not a multiple of 10");
             }
 
             else
