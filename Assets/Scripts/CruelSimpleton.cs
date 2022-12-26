@@ -620,7 +620,7 @@ public class CruelSimpleton : MonoBehaviour {
             string time = minutes + ":" + seconds;
             
 
-            Debug.LogFormat("[Cruel Simpleton {0}] Button was pressed at {1}", ModuleId, time);
+            Debug.LogFormat("[Cruel Simpleton {0}] Button was pressed at {1} (Rule 6)", ModuleId, time);
 
             if (seconds % 10 != 0)
             {
