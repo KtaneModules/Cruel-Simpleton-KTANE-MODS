@@ -184,13 +184,12 @@ public class CruelSimpleton : MonoBehaviour {
 
             rule8Answer = FindRule8Answer();
             rule8Input = null;
-            LogAnswer(8);
         }
 
         else if (rule1)
         {
             rule1Answer = FindRule1Answer();
-            Debug.LogFormat("[Cruel Simpleton #{0}] Expecting: {1}", ModuleId, string.Join(", ", rule1Answer.Select(e => e.ToString()).ToArray()));
+            Debug.LogFormat("[Cruel Simpleton #{0}] Expecting: {1}", ModuleId, string.Join(" ", rule1Answer.Select(e => e.ToString()).ToArray()));
         }
 
         else if (rule2)
@@ -219,7 +218,8 @@ public class CruelSimpleton : MonoBehaviour {
         {
             rule8Answer = FindRule8Answer();
             rule8Input = null;
-            LogAnswer(8);
+            Debug.Log("[Cruel Simpleton {0}] Expecting: " + string.Join(" ", rule8Answer.Select(x => x.ToString()).ToArray()));
+
         }
 
     }
@@ -803,7 +803,19 @@ public class CruelSimpleton : MonoBehaviour {
             if (rule8Input.Last() != rule8Answer[index])
             {
                 GetComponent<KMBombModule>().HandleStrike();
-                Debug.Log("Strike! Pressed section " + rule8Input.Last() + " insetead of section " + rule8Answer[index]);
+
+                string input = "";
+                string answer = "";
+                for (int i = 0; i <= index; i++)
+                {
+                    input += rule8Input[i] + " ";
+                    answer += rule8Answer[i] + " ";
+                }
+
+                input = input.Trim();
+                answer = answer.Trim();
+
+                Debug.LogFormat("[Cruel Simpleton {0}] Submitted {1} instead of {2}", ModuleId, input, answer);
                 rule8Input.Clear();
                 return;
             }
@@ -1177,15 +1189,6 @@ public class CruelSimpleton : MonoBehaviour {
         }
 
         return "button";
-    }
-
-    //Logs the answer that needs to be inputted
-    private void LogAnswer(int rule)
-    {
-        if (rule == 8)
-        {
-            Debug.Log("Rule 8 answer: " + string.Join(", ", rule8Answer.Select(x => x.ToString()).ToArray()));
-        }
     }
 
     private bool ModCountPrime()
