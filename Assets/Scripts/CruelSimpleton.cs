@@ -218,7 +218,7 @@ public class CruelSimpleton : MonoBehaviour {
         {
             rule8Answer = FindRule8Answer();
             rule8Input = null;
-            Debug.Log("[Cruel Simpleton {0}] Expecting: " + string.Join(" ", rule8Answer.Select(x => x.ToString()).ToArray()));
+            Debug.LogFormat("[Cruel Simpleton #{0}] Expecting: {1}", ModuleId, string.Join(" ", rule8Answer.Select(x => x.ToString()).ToArray()));
 
         }
 
@@ -313,7 +313,7 @@ public class CruelSimpleton : MonoBehaviour {
                         //play stage clear sound
 
                         unicornRuleNum++;
-                        Debug.Log("Stage cleared. Now on stage " + unicornRuleNum);
+                        Debug.LogFormat("[Cruel Simpleton #{0}] Stage cleared. Now on stage {1}", ModuleId, unicornRuleNum);
 
                     }
 
@@ -378,7 +378,7 @@ public class CruelSimpleton : MonoBehaviour {
                     {
                         //play clear stage sound
                         unicornRuleNum++;
-                        Debug.Log("Stage Cleared. Now on stage " + unicornRuleNum);
+                        Debug.LogFormat("[Cruel Simpleton #{0}] Stage cleared. Now on stage {1}", ModuleId, unicornRuleNum);
                     }
 
                     else
@@ -582,7 +582,7 @@ public class CruelSimpleton : MonoBehaviour {
                 {
                     //play clear stage sound
                     unicornRuleNum++;
-                    Debug.Log("Stage cleared. Now on stage " + unicornRuleNum);
+                    Debug.LogFormat("[Cruel Simpleton #{0}] Stage cleared. Now on stage {1}", ModuleId, unicornRuleNum);
                 }
 
                 else
@@ -609,7 +609,7 @@ public class CruelSimpleton : MonoBehaviour {
         if (!rule6Active && !unicorn6Active && !rule9Active && !unicorn9Active)
         {
             GetComponent<KMBombModule>().HandleStrike();
-            Debug.Log("Strike! Pressed the button when rule 6 didn't apply");
+            Debug.LogFormat("[Cruel Simpleton #{0}] Strike! Pressed the button when rule 6 didn't apply", ModuleId);
             return;
         }
 
@@ -620,7 +620,7 @@ public class CruelSimpleton : MonoBehaviour {
             string time = minutes + ":" + seconds;
             
 
-            Debug.LogFormat("[Cruel Simpleton {0}] Button was pressed at {1} (Rule 6)", ModuleId, time);
+            Debug.LogFormat("[Cruel Simpleton #{0}] Button was pressed at {1} (Rule 6)", ModuleId, time);
 
             if (seconds % 10 != 0)
             {
@@ -633,7 +633,8 @@ public class CruelSimpleton : MonoBehaviour {
                 {
                     //play stage clear sound
                     unicornRuleNum++;
-                    Debug.Log("Stage cleared. Now on stage " + unicornRuleNum);
+                    Debug.LogFormat("[Cruel Simpleton #{0}] Stage cleared. Now on stage {1}", ModuleId, unicornRuleNum);
+                    Debug.LogFormat("[Cruel Simpleton #{0}] Stage cleared. Now on stage {1}", ModuleId, unicornRuleNum);
                 }
 
                 else
@@ -651,6 +652,7 @@ public class CruelSimpleton : MonoBehaviour {
 
         if (rule9Active || unicorn9Active)
         {
+            Debug.LogFormat("[Cruel Simpleton #{0}] Pressed the button (Rule 9)", ModuleId);
             GetComponent<KMBombModule>().HandlePass();
             ModuleSolved = true;
             buttonText.text = "VICTORY";
@@ -685,7 +687,7 @@ public class CruelSimpleton : MonoBehaviour {
 
         string time = string.Format("{0:0.#}", deltaTime);
 
-        Debug.LogFormat("[Cruel Simpleton {0}] Held button for {1} seconds", ModuleId, time);
+        Debug.LogFormat("[Cruel Simpleton #{0}] Held button for {1} seconds", ModuleId, time);
 
         float minValue = 7.5f;
         float maxValue = 8.5f;
@@ -696,7 +698,7 @@ public class CruelSimpleton : MonoBehaviour {
             {
                 //play clear stage sound
                 unicornRuleNum++;
-                Debug.Log("Stage cleared. Now on stage " + unicornRuleNum);
+                Debug.LogFormat("[Cruel Simpleton #{0}] Stage cleared. Now on stage {1}", ModuleId, unicornRuleNum);
 
             }
 
@@ -712,7 +714,6 @@ public class CruelSimpleton : MonoBehaviour {
         else
         {
             GetComponent<KMBombModule>().HandleStrike();
-            Debug.Log("Strike!");
         }
     }
 
@@ -744,9 +745,6 @@ public class CruelSimpleton : MonoBehaviour {
         bool rule8Active = rule8;
         bool rule9Active = Rule9();
 
-
-
-
         if (ModuleSolved)
         {
             return;
@@ -757,7 +755,7 @@ public class CruelSimpleton : MonoBehaviour {
         {
             rule7Answer = FindRule7Answer();
 
-            Debug.LogFormat("[Cruel Simpleton {0}] Pressed section {1}. Expected section {2} (Rule 7)", ModuleId, sectionNum, rule7Answer);
+            Debug.LogFormat("[Cruel Simpleton #{0}] Pressed section {1}. Expected section {2} (Rule 7)", ModuleId, sectionNum, rule7Answer);
 
             if (sectionNum == rule7Answer)
             {
@@ -766,7 +764,7 @@ public class CruelSimpleton : MonoBehaviour {
                     //play stage clear sound
 
                     unicornRuleNum++;
-                    Debug.Log("Stage cleared. Now on stage " + unicornRuleNum);
+                    Debug.LogFormat("[Cruel Simpleton #{0}] Stage cleared. Now on stage {1}", ModuleId, unicornRuleNum);
 
                 }
 
@@ -815,7 +813,7 @@ public class CruelSimpleton : MonoBehaviour {
                 input = input.Trim();
                 answer = answer.Trim();
 
-                Debug.LogFormat("[Cruel Simpleton {0}] Submitted {1} instead of {2}", ModuleId, input, answer);
+                Debug.LogFormat("[Cruel Simpleton #{0}] Submitted {1} instead of {2}", ModuleId, input, answer);
                 rule8Input.Clear();
                 return;
             }
@@ -826,7 +824,7 @@ public class CruelSimpleton : MonoBehaviour {
                 {
                     //play stage clear sound
                     unicornRuleNum++;
-                    Debug.Log("Stage cleared. Now on stage " + unicornRuleNum);
+                    Debug.LogFormat("[Cruel Simpleton #{0}] Stage cleared. Now on stage {1}", ModuleId, unicornRuleNum);
 
                 }
 
@@ -846,12 +844,12 @@ public class CruelSimpleton : MonoBehaviour {
         {
             if (sectionNum == 4)
             {
-                Debug.Log("Strike! Pressed button instead of the status light");
+                Debug.LogFormat("[Cruel Simpleton #{0}] Strike! Pressed the button instead of the status light", ModuleId);
             }
 
             else
             {
-                Debug.Log("Strike! Pressed " + sectionName + " section instead of the status light");
+                Debug.LogFormat("[Cruel Simpleton #{0}] Strike! Pressed {1} instead of the status light", ModuleId, sectionName);
             }
 
             GetComponent<KMBombModule>().HandleStrike();
@@ -866,7 +864,17 @@ public class CruelSimpleton : MonoBehaviour {
         {
             if (sectionNum != 4)
             {
-                Debug.Log("Strike! Pressed " + sectionName + " section instead of the button");
+                if (rule1Active || unicorn1Active || rule4Active || unicorn4Active || rule5Active || unicorn5Active)
+                {
+                    Debug.LogFormat("[Cruel Simpleton #{0}] Strike! Pressed {1} instead of the button", ModuleId, sectionName);
+                }
+
+                else
+                {
+                    string rule = rule6Active || unicorn6Active ? "(Rule 6)" : "(Rule 9)";
+                    Debug.LogFormat("[Cruel Simpleton #{0}] Strike! Pressed {1} instead of the button {2}", ModuleId, sectionName, rule);
+                }
+
                 GetComponent<KMBombModule>().HandleStrike();
                 return;
             }
@@ -912,7 +920,8 @@ public class CruelSimpleton : MonoBehaviour {
         if (rule7Active || unicorn7Active ||
             rule8Active || unicorn8Active)
         {
-            Debug.Log("Strike! Pressed status light instead of one of the sections");
+            string rule = rule7Active || unicorn7Active ? "(Rule 7)" : "(Rule 8)";
+            Debug.LogFormat("[Cruel Simpleton #{0}] Strike! Pressed stataus light instead of one of the sections {1}", ModuleId, rule);
             GetComponent<KMBombModule>().HandleStrike();
             return;
         }
@@ -924,7 +933,9 @@ public class CruelSimpleton : MonoBehaviour {
             rule6Active || unicorn6Active || 
             rule9Active || unicorn9Active)
         {
-            Debug.Log("Strike! Pressed status light instead of the button");
+            string rule = rule6Active || unicorn6Active ? "(Rule 6)" : rule9Active || unicorn9Active ? "(Rule 9)" : "";
+
+            Debug.LogFormat("[Cruel Simpleton #{0}] Strike! Pressed status light instead of the button {1}", ModuleId, rule);
             GetComponent<KMBombModule>().HandleStrike();
             return;
         }
