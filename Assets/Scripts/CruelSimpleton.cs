@@ -206,8 +206,13 @@ public class CruelSimpleton : MonoBehaviour {
         }
 
         else if (rule4)
-        { 
+        {
             Debug.LogFormat("[Cruel Simpleton #{0}] Expecting button to be held for 8 seconds", ModuleId);
+        }
+
+        else if (rule5)
+        { 
+            Debug.LogFormat("[Cruel Simpleton #{0}] Expecting button to be pressed 69 times", ModuleId);
         }
 
         else if (rule8)
@@ -325,10 +330,6 @@ public class CruelSimpleton : MonoBehaviour {
                 else
                 {
                     GetComponent<KMBombModule>().HandleStrike();
-
-                    Debug.LogError("First Section: " + string.Join("", rule2Input[0].ToArray()));
-                    Debug.LogError("Second Section: " + string.Join("", rule2Input[1].ToArray()));
-                    Debug.LogError("Third Section: " + string.Join("", rule2Input[2].ToArray()));
 
                     ClearRule2Input();
                     submitting = 0;

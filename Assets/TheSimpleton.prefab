@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 114823302907343094}
   - component: {fileID: 114343333093238948}
   m_Layer: 0
-  m_Name: TheSimpleton 1 1
+  m_Name: TheSimpleton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
