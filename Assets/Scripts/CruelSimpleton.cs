@@ -213,7 +213,7 @@ public class CruelSimpleton : MonoBehaviour {
 
         else if (rule2)
         {
-            Debug.LogFormat("[Cruel Simpleton #{0}] Expecting: -... (B) --- (O) -... (B)", ModuleId);
+            Debug.LogFormat("[Cruel Simpleton #{0}] Expecting: -... --- -... (BOB)", ModuleId);
 
         }
 
@@ -1437,7 +1437,7 @@ public class CruelSimpleton : MonoBehaviour {
         string letter2 = ConvertMorseLetter(str2);
         string letter3 = ConvertMorseLetter(str3);
 
-        return str1 + " (" + letter1 + ") " + str2 + " (" + letter2 + ") " + str3 + " (" + letter3 + ") ";
+        return str1 + " " + str2 + " " + str3 + " (" + letter1 + letter2 + letter3 + ")";
     }
 
     private void ClearRule2Input()
@@ -1487,7 +1487,7 @@ public class CruelSimpleton : MonoBehaviour {
                     Audio.PlaySoundAtTransform(stageClearSound.name, transform);
 
                     Debug.LogFormat("[Cruel Simpleton #{0}] Stage cleared. Now on stage {1} ", ModuleId, unicornRuleNum);
-                    Debug.LogFormat("[Cruel Simpleton #{0}] Expecting: -... (B) --- (O) -... (B)", ModuleId);
+                    Debug.LogFormat("[Cruel Simpleton #{0}] Expecting: -... --- -... (BOB)", ModuleId);
                 }
 
                 else
