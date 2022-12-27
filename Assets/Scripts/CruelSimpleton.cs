@@ -33,6 +33,8 @@ public class CruelSimpleton : MonoBehaviour {
     private bool dotSoundPlayed;
     private bool clearSoundPlayed;
 
+    public AudioSource audioSource;
+
     //tells which rule the user is on for the unicorn
     private int unicornRuleNum;
 
@@ -294,8 +296,9 @@ public class CruelSimpleton : MonoBehaviour {
             if (dashOrDot != 0 && dashOrDot <= dotThreshold)
             {
                 if (!dotSoundPlayed)
-                { 
-                    Audio.PlaySoundAtTransform(dotSound.name, transform);
+                {
+                    audioSource.clip = dotSound;
+                    audioSource.Play();
                     dotSoundPlayed = true;
                 }
                 Debug.Log("Dot Inputted");
@@ -305,7 +308,8 @@ public class CruelSimpleton : MonoBehaviour {
             {
                 if (!dashSoundPlayed)
                 {
-                    Audio.PlaySoundAtTransform(dashSound.name, transform);
+                    audioSource.clip = dashSound;
+                    audioSource.Play();
                     dashSoundPlayed = true;
                 }
 
@@ -316,7 +320,8 @@ public class CruelSimpleton : MonoBehaviour {
             {
                 if (!clearSoundPlayed)
                 {
-                    Audio.PlaySoundAtTransform(clearMorseSound.name, transform);
+                    audioSource.clip = clearMorseSound;
+                    audioSource.Play();
                     clearSoundPlayed = true;
                 }
 
@@ -330,7 +335,8 @@ public class CruelSimpleton : MonoBehaviour {
 
             if (submitting == breakThreshold)
             {
-                Audio.PlaySoundAtTransform(breakSound.name, transform);
+                audioSource.clip = breakSound;
+                audioSource.Play();
                 Debug.Log("BREAK");
                 rule2CurrentIndex++;
             }
@@ -347,7 +353,8 @@ public class CruelSimpleton : MonoBehaviour {
                     {
                         //play stage clear sound
                         unicornRuleNum++;
-                        Audio.PlaySoundAtTransform(stageClearSound.name, transform);
+                        audioSource.clip = stageClearSound;
+                        audioSource.Play();
                         Debug.LogFormat("[Cruel Simpleton #{0}] Stage cleared. Now on stage {1}", ModuleId, unicornRuleNum);
                         Debug.LogFormat("[Cruel Simpleton #{0}] Expecting: {1}", ModuleId, rule3Answer);
 
@@ -359,7 +366,8 @@ public class CruelSimpleton : MonoBehaviour {
                         GetComponent<KMBombModule>().HandlePass();
                         ModuleSolved = true;
                         buttonText.text = "VICTORY";
-                        Audio.PlaySoundAtTransform(moduleSolveSound.name, transform);
+                        audioSource.clip = moduleSolveSound;
+                        audioSource.Play();
                     }
 
                 }
@@ -386,7 +394,8 @@ public class CruelSimpleton : MonoBehaviour {
             {
                 if (!dotSoundPlayed)
                 {
-                    Audio.PlaySoundAtTransform(dotSound.name, transform);
+                    audioSource.clip = dotSound;
+                    audioSource.Play();
                     dotSoundPlayed = true;
                 }
 
@@ -397,7 +406,8 @@ public class CruelSimpleton : MonoBehaviour {
             {
                 if (!dashSoundPlayed)
                 {
-                    Audio.PlaySoundAtTransform(dashSound.name, transform);
+                    audioSource.clip = dashSound;
+                    audioSource.Play();
                     dashSoundPlayed = true;
                 }
 
@@ -408,7 +418,8 @@ public class CruelSimpleton : MonoBehaviour {
             {
                 if (!clearSoundPlayed)
                 {
-                    Audio.PlaySoundAtTransform(clearMorseSound.name, transform);
+                    audioSource.clip = clearMorseSound;
+                    audioSource.Play();
                     clearSoundPlayed = true;
                 }
 
