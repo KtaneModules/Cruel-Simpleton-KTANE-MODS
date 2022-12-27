@@ -213,14 +213,15 @@ public class CruelSimpleton : MonoBehaviour {
 
         else if (rule2)
         {
-            Debug.LogFormat("[Cruel Simpleton #{0}] Expecting: -... --- -...", ModuleId);
+            Debug.LogFormat("[Cruel Simpleton #{0}] Expecting: -... (B) --- (O) -... (B)", ModuleId);
 
         }
 
         else if (rule3)
         {
             rule3Answer = FindRule3Answer();
-            Debug.LogFormat("[Cruel Simpleton #{0}] Expecting: {1}", ModuleId, rule3Answer);
+            string letter = ConvertMorseLetter(rule3Answer);
+            Debug.LogFormat("[Cruel Simpleton #{0}] Expecting: {1} ({2})", ModuleId, rule3Answer, letter);
         }
 
         else if (rule4)
@@ -337,8 +338,9 @@ public class CruelSimpleton : MonoBehaviour {
             else if (submitting == rule2SubmitThreshold)
             {
                 string answer = Rule2Answer();
+                string modedAnswer = Rule2ModdedAnswer();
 
-                Debug.LogFormat("[Cruel Simpleton #{0}] Submitted {1}", ModuleId, answer);
+                Debug.LogFormat("[Cruel Simpleton #{0}] Submitted {1}", ModuleId, modedAnswer);
 
                 if (answer == "-... --- -...")
                 {
@@ -348,8 +350,7 @@ public class CruelSimpleton : MonoBehaviour {
                         unicornRuleNum++;
                         Audio.PlaySoundAtTransform(stageClearSound.name, transform);
                         Debug.LogFormat("[Cruel Simpleton #{0}] Stage cleared. Now on stage {1}", ModuleId, unicornRuleNum);
-                        Debug.LogFormat("[Cruel Simpleton #{0}] Expecting: {1}", ModuleId, rule3Answer);
-
+                        Debug.LogFormat("[Cruel Simpleton #{0}] Expecting: {1} ({2})", ModuleId, rule3Answer, Bomb.GetSerialNumberLetters().First());
                     }
 
                     else
@@ -421,7 +422,10 @@ public class CruelSimpleton : MonoBehaviour {
 
             if (submitting == rule3SubmitThreshold)
             {
-                Debug.LogFormat("[Cruel Simpleton #{0}] Submitted {1}", ModuleId, string.Join("",rule3Input.ToArray()));
+                string inputStr = string.Join("", rule3Input.ToArray());
+                string letter = ConvertMorseLetter(inputStr);
+
+                Debug.LogFormat("[Cruel Simpleton #{0}] Submitted {1} ({2})", ModuleId, inputStr, letter);
 
                 if (Rule3Correct())
                 {
@@ -441,7 +445,6 @@ public class CruelSimpleton : MonoBehaviour {
                         buttonText.text = "VICTORY";
                         Audio.PlaySoundAtTransform(moduleSolveSound.name, transform);
                     }
-
                 }
 
                 else
@@ -1232,6 +1235,94 @@ public class CruelSimpleton : MonoBehaviour {
 
     #region Helper Methods
 
+    private string ConvertMorseLetter(string morse)
+    {
+        switch (morse)
+        {
+            case ".-":
+                return "A";
+
+            case "-...":
+                return "B";
+
+            case "-.-.":
+                return "C";
+
+            case "-..":
+                return "D";
+
+            case ".":
+                return "E";
+
+            case "..-.":
+                return "F";
+
+            case "--.":
+                return "G";
+
+            case "....":
+                return "H";
+
+            case "..":
+                return "I";
+
+            case ".---":
+                return "J";
+
+            case "-.-":
+                return "K";
+
+            case ".-..":
+                return "L";
+
+            case "--":
+                return "M";
+
+            case "-.":
+                return "N";
+
+            case "---":
+                return "O";
+
+            case ".--.":
+                return "P";
+
+            case "--.-":
+                return "Q";
+
+            case ".-.":
+                return "R";
+
+            case "...":
+                return "S";
+
+            case "-":
+                return "T";
+
+            case "..-":
+                return "U";
+
+            case "...-":
+                return "V";
+
+            case ".--":
+                return "W";
+
+            case "-..-":
+                return "X";
+
+            case "-.--":
+                return "Y";
+
+            case "--..":
+                return "Z";
+
+            default:
+                return "?";
+        }
+    }
+
+
     private int SectionToInt(KMSelectable section)
     {
         if (section == topLeftSection)
@@ -1336,6 +1427,19 @@ public class CruelSimpleton : MonoBehaviour {
         return string.Join("", rule2Input[0].ToArray()) + " " + string.Join("", rule2Input[1].ToArray()) + " " + string.Join("", rule2Input[2].ToArray());
     }
 
+    private string Rule2ModdedAnswer()
+    {
+        string str1 = string.Join("", rule2Input[0].ToArray());
+        string str2 = string.Join("", rule2Input[1].ToArray());
+        string str3 = string.Join("", rule2Input[2].ToArray());
+
+        string letter1 = ConvertMorseLetter(str1);
+        string letter2 = ConvertMorseLetter(str2);
+        string letter3 = ConvertMorseLetter(str3);
+
+        return str1 + " (" + letter1 + ") " + str2 + " (" + letter2 + ") " + str3 + " (" + letter3 + ") ";
+    }
+
     private void ClearRule2Input()
     {
         rule2Input = new List<List<string>>()
@@ -1383,7 +1487,7 @@ public class CruelSimpleton : MonoBehaviour {
                     Audio.PlaySoundAtTransform(stageClearSound.name, transform);
 
                     Debug.LogFormat("[Cruel Simpleton #{0}] Stage cleared. Now on stage {1} ", ModuleId, unicornRuleNum);
-                    Debug.LogFormat("[Cruel Simpleton #{0}] Expecting: -... --- -...", ModuleId);
+                    Debug.LogFormat("[Cruel Simpleton #{0}] Expecting: -... (B) --- (O) -... (B)", ModuleId);
                 }
 
                 else
