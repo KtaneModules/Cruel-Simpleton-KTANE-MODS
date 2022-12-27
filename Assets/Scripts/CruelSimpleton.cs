@@ -19,7 +19,20 @@ public class CruelSimpleton : MonoBehaviour {
     public KMSelectable blueButton;
 
     public TextMesh buttonText;
-    
+
+    public AudioClip dashSound;
+    public AudioClip dotSound;
+    public AudioClip breakSound;
+
+    public AudioClip moduleSolveSound;
+    public AudioClip clearMorseSound;
+    public AudioClip stageClearSound;
+
+
+    private bool dashSoundPlayed;
+    private bool dotSoundPlayed;
+    private bool clearSoundPlayed;
+
     //tells which rule the user is on for the unicorn
     private int unicornRuleNum;
 
@@ -63,6 +76,9 @@ public class CruelSimpleton : MonoBehaviour {
     private int breakThreshold;
     private int rule3SubmitThreshold;
     private int rule2SubmitThreshold;
+
+
+
 
     private int rule2CurrentIndex;
 
@@ -277,19 +293,33 @@ public class CruelSimpleton : MonoBehaviour {
 
             if (dashOrDot != 0 && dashOrDot <= dotThreshold)
             {
-                //play dot sound
+                if (!dotSoundPlayed)
+                { 
+                    Audio.PlaySoundAtTransform(dotSound.name, transform);
+                    dotSoundPlayed = true;
+                }
                 Debug.Log("Dot Inputted");
             }
 
             if (dashOrDot > dotThreshold && dashOrDot <= dashThreshold)
             {
-                //play dash sound
+                if (!dashSoundPlayed)
+                {
+                    Audio.PlaySoundAtTransform(dashSound.name, transform);
+                    dashSoundPlayed = true;
+                }
+
                 Debug.Log("Dash Inputted");
             }
 
             else if (dashOrDot > dashThreshold)
             {
-                //play input clear sound
+                if (!clearSoundPlayed)
+                {
+                    Audio.PlaySoundAtTransform(clearMorseSound.name, transform);
+                    clearSoundPlayed = true;
+                }
+
                 Debug.Log("Input Cleared");
             }
 
@@ -300,6 +330,7 @@ public class CruelSimpleton : MonoBehaviour {
 
             if (submitting == breakThreshold)
             {
+                Audio.PlaySoundAtTransform(breakSound.name, transform);
                 Debug.Log("BREAK");
                 rule2CurrentIndex++;
             }
@@ -315,8 +346,8 @@ public class CruelSimpleton : MonoBehaviour {
                     if (unicorn && unicornRuleNum == 2)
                     {
                         //play stage clear sound
-
                         unicornRuleNum++;
+                        Audio.PlaySoundAtTransform(stageClearSound.name, transform);
                         Debug.LogFormat("[Cruel Simpleton #{0}] Stage cleared. Now on stage {1}", ModuleId, unicornRuleNum);
                         Debug.LogFormat("[Cruel Simpleton #{0}] Expecting: {1}", ModuleId, rule3Answer);
 
@@ -328,6 +359,7 @@ public class CruelSimpleton : MonoBehaviour {
                         GetComponent<KMBombModule>().HandlePass();
                         ModuleSolved = true;
                         buttonText.text = "VICTORY";
+                        Audio.PlaySoundAtTransform(moduleSolveSound.name, transform);
                     }
 
                 }
@@ -352,19 +384,34 @@ public class CruelSimpleton : MonoBehaviour {
 
             if (dashOrDot != 0 && dashOrDot <= dotThreshold)
             {
-                //play dot sound
+                if (!dotSoundPlayed)
+                {
+                    Audio.PlaySoundAtTransform(dotSound.name, transform);
+                    dotSoundPlayed = true;
+                }
+
                 Debug.Log("Dot Inputted");
             }
 
             if (dashOrDot > dotThreshold && dashOrDot <= dashThreshold)
             {
-                //play dash sound
+                if (!dashSoundPlayed)
+                {
+                    Audio.PlaySoundAtTransform(dashSound.name, transform);
+                    dashSoundPlayed = true;
+                }
+
                 Debug.Log("Dash Inputted");
             }
 
             else if (dashOrDot > dashThreshold)
             {
-                //play input clear sound
+                if (!clearSoundPlayed)
+                {
+                    Audio.PlaySoundAtTransform(clearMorseSound.name, transform);
+                    clearSoundPlayed = true;
+                }
+
                 Debug.Log("Input Cleared");
             }
 
@@ -381,8 +428,8 @@ public class CruelSimpleton : MonoBehaviour {
                 {
                     if (unicorn && unicornRuleNum == 3)
                     {
-                        //play clear stage sound
                         unicornRuleNum++;
+                        Audio.PlaySoundAtTransform(stageClearSound.name, transform);
                         Debug.LogFormat("[Cruel Simpleton #{0}] Stage cleared. Now on stage {1}", ModuleId, unicornRuleNum);
                         Debug.LogFormat("[Cruel Simpleton #{0}] Expecting button to be held for 8 seconds", ModuleId);
                     }
@@ -393,6 +440,7 @@ public class CruelSimpleton : MonoBehaviour {
                         submitting = 0;
                         GetComponent<KMBombModule>().HandlePass();
                         buttonText.text = "VICTORY";
+                        Audio.PlaySoundAtTransform(moduleSolveSound.name, transform);
                     }
 
                 }
@@ -588,6 +636,7 @@ public class CruelSimpleton : MonoBehaviour {
                 {
                     //play clear stage sound
                     unicornRuleNum++;
+                    Audio.PlaySoundAtTransform(stageClearSound.name, transform);
                     Debug.LogFormat("[Cruel Simpleton #{0}] Stage cleared. Now on stage {1}", ModuleId, unicornRuleNum);
                 }
 
@@ -596,6 +645,7 @@ public class CruelSimpleton : MonoBehaviour {
                     GetComponent<KMBombModule>().HandlePass();
                     ModuleSolved = true;
                     buttonText.text = "VICTORY";
+                    Audio.PlaySoundAtTransform(moduleSolveSound.name, transform);
                 }
 
             }
@@ -639,6 +689,7 @@ public class CruelSimpleton : MonoBehaviour {
                 {
                     //play stage clear sound
                     unicornRuleNum++;
+                    Audio.PlaySoundAtTransform(stageClearSound.name, transform);
                     Debug.LogFormat("[Cruel Simpleton #{0}] Stage cleared. Now on stage {1}", ModuleId, unicornRuleNum);
                 }
 
@@ -647,6 +698,7 @@ public class CruelSimpleton : MonoBehaviour {
                     GetComponent<KMBombModule>().HandlePass();
                     ModuleSolved = true;
                     buttonText.text = "VICTORY";
+                    Audio.PlaySoundAtTransform(moduleSolveSound.name, transform);
                 }
             }
 
@@ -661,6 +713,7 @@ public class CruelSimpleton : MonoBehaviour {
             GetComponent<KMBombModule>().HandlePass();
             ModuleSolved = true;
             buttonText.text = "VICTORY";
+            Audio.PlaySoundAtTransform(moduleSolveSound.name, transform);
         }
     }
 
@@ -703,6 +756,7 @@ public class CruelSimpleton : MonoBehaviour {
             {
                 //play clear stage sound
                 unicornRuleNum++;
+                Audio.PlaySoundAtTransform(stageClearSound.name, transform);
                 Debug.LogFormat("[Cruel Simpleton #{0}] Stage cleared. Now on stage {1}", ModuleId, unicornRuleNum);
                 Debug.LogFormat("[Cruel Simpleton #{0}] Expecting button to be pressed 69 times", ModuleId);
             }
@@ -712,6 +766,7 @@ public class CruelSimpleton : MonoBehaviour {
                 GetComponent<KMBombModule>().HandlePass();
                 ModuleSolved = true;
                 buttonText.text = "VICTORY";
+                Audio.PlaySoundAtTransform(moduleSolveSound.name, transform);
             }
 
         }
@@ -767,8 +822,8 @@ public class CruelSimpleton : MonoBehaviour {
                 if (unicorn && unicornRuleNum == 7)
                 {
                     //play stage clear sound
-
                     unicornRuleNum++;
+                    Audio.PlaySoundAtTransform(stageClearSound.name, transform);
                     Debug.LogFormat("[Cruel Simpleton #{0}] Stage cleared. Now on stage {1}", ModuleId, unicornRuleNum);
 
                 }
@@ -778,6 +833,7 @@ public class CruelSimpleton : MonoBehaviour {
                     GetComponent<KMBombModule>().HandlePass();
                     ModuleSolved = true;
                     buttonText.text = "VICTORY";
+                    Audio.PlaySoundAtTransform(moduleSolveSound.name, transform);
                 }
 
             }
@@ -829,6 +885,7 @@ public class CruelSimpleton : MonoBehaviour {
                 {
                     //play stage clear sound
                     unicornRuleNum++;
+                    Audio.PlaySoundAtTransform(stageClearSound.name, transform);
                     Debug.LogFormat("[Cruel Simpleton #{0}] Stage cleared. Now on stage {1}", ModuleId, unicornRuleNum);
 
                 }
@@ -838,6 +895,7 @@ public class CruelSimpleton : MonoBehaviour {
                     GetComponent<KMBombModule>().HandlePass();
                     ModuleSolved = true;
                     buttonText.text = "VICTORY";
+                    Audio.PlaySoundAtTransform(moduleSolveSound.name, transform);
                 }
 
                 return;
@@ -954,6 +1012,9 @@ public class CruelSimpleton : MonoBehaviour {
         if ((rule2 || unicorn2Active) && holdingStatus)
         {
             holdingStatus = false;
+            dotSoundPlayed = false;
+            dashSoundPlayed = false;
+            clearSoundPlayed = false;
 
             if (dashOrDot <= dotThreshold)
             {
@@ -1315,6 +1376,7 @@ public class CruelSimpleton : MonoBehaviour {
                 {
                     //play stage clear sound
                     unicornRuleNum++;
+                    Audio.PlaySoundAtTransform(stageClearSound.name, transform);
                     Debug.LogFormat("[Cruel Simpleton #{0}] Stage cleared. Now on stage {1} ", ModuleId, unicornRuleNum);
                     Debug.LogFormat("[Cruel Simpleton #{0}] Expecting: -... --- -...", ModuleId);
                 }
@@ -1324,6 +1386,7 @@ public class CruelSimpleton : MonoBehaviour {
                     GetComponent<KMBombModule>().HandlePass();
                     ModuleSolved = true;
                     buttonText.text = "VICTORY";
+                    Audio.PlaySoundAtTransform(moduleSolveSound.name, transform);
                 }
 
                 return;
