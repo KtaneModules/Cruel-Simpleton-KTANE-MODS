@@ -569,6 +569,9 @@ public class CruelSimpleton : MonoBehaviour {
     #region Events
     private void BlueButton()
     {
+        blueButton.AddInteractionPunch();
+        Audio.PlayGameSoundAtTransform(KMSoundOverride.SoundEffect.BigButtonPress, transform);
+
         bool unicorn1Active = unicorn && unicornRuleNum == 1;
         bool unicorn2Active = unicorn && unicornRuleNum == 2;
         bool unicorn3Active = unicorn && unicornRuleNum == 3;
@@ -722,8 +725,6 @@ public class CruelSimpleton : MonoBehaviour {
         {
             return;
         }
-
-        blueButton.AddInteractionPunch(0.1f);
 
         if (mouseDown && rule1Inputs.Count(e => e == Event.MouseDown) > rule1Inputs.Count(e => e == Event.MouseUp))
         {
