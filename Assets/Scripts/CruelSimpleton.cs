@@ -1218,7 +1218,7 @@ public class CruelSimpleton : MonoBehaviour {
 
         foreach (char str in charArr)
         {
-            int num = int.Parse("" + str) % 4;
+            int num = int.Parse("" + str) % 5;
 
             if (num == 0)
             {
