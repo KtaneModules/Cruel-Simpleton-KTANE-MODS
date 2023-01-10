@@ -750,8 +750,8 @@ public class CruelSimpleton : MonoBehaviour {
 
         Debug.LogFormat("[Cruel Simpleton #{0}] Held button for {1} seconds", ModuleId, time);
 
-        float minValue = 7.5f;
-        float maxValue = 8.5f;
+        float minValue = 7f;
+        float maxValue = 9f;
 
         if (minValue <= deltaTime && deltaTime <= maxValue)
         {
