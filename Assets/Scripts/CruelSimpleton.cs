@@ -226,7 +226,7 @@ public class CruelSimpleton : MonoBehaviour {
 
         else if (rule4)
         {
-            Debug.LogFormat("[Cruel Simpleton #{0}] Expecting button to be held for 8 seconds", ModuleId);
+            Debug.LogFormat("[Cruel Simpleton #{0}] Expecting button to be held for 7-9 seconds", ModuleId);
         }
 
         else if (rule5)
