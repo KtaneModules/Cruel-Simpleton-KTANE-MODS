@@ -220,7 +220,7 @@ public class CruelSimpleton : MonoBehaviour {
         else if (rule3)
         {
             rule3Answer = FindRule3Answer();
-            string letter = ConvertMorseLetter(rule3Answer);
+            string letter = ConvertMorseCharacter(rule3Answer);
             Debug.LogFormat("[Cruel Simpleton #{0}] Expecting: {1} ({2})", ModuleId, rule3Answer, letter);
         }
 
@@ -423,7 +423,7 @@ public class CruelSimpleton : MonoBehaviour {
             if (submitting == rule3SubmitThreshold)
             {
                 string inputStr = string.Join("", rule3Input.ToArray());
-                string letter = ConvertMorseLetter(inputStr);
+                string letter = ConvertMorseCharacter(inputStr);
 
                 Debug.LogFormat("[Cruel Simpleton #{0}] Submitted {1} ({2})", ModuleId, inputStr, letter);
 
@@ -1105,7 +1105,7 @@ public class CruelSimpleton : MonoBehaviour {
 
     private string FindRule3Answer()
     {
-        switch (Bomb.GetSerialNumberLetters().First())
+        switch (Bomb.GetSerialNumber().First())
         {
             case 'A':
                 return ".-";
@@ -1182,8 +1182,38 @@ public class CruelSimpleton : MonoBehaviour {
             case 'Y':
                 return "-.--";
 
-            default:
+            case 'Z':
                 return "--..";
+
+            case '0':
+                return "-----";
+
+            case '1':
+                return ".----";
+
+            case '2':
+                return "..---";
+
+            case '3':
+                return "...--";
+
+            case '4':
+                return "....-";
+
+            case '5':
+                return ".....";
+
+            case '6':
+                return "-....";
+
+            case '7':
+                return "--...";
+
+            case '8':
+                return "---..";
+
+            default: //9
+                return "----.";
         }
     }
 
@@ -1235,7 +1265,7 @@ public class CruelSimpleton : MonoBehaviour {
 
     #region Helper Methods
 
-    private string ConvertMorseLetter(string morse)
+    private string ConvertMorseCharacter(string morse)
     {
         switch (morse)
         {
@@ -1316,6 +1346,36 @@ public class CruelSimpleton : MonoBehaviour {
 
             case "--..":
                 return "Z";
+
+            case "-----":
+                return "0";
+
+            case ".----":
+                return "1";
+
+            case "..---":
+                return "2";
+
+            case "...--":
+                return "3";
+
+            case "....-":
+                return "4";
+
+            case ".....":
+                return "5";
+
+            case "-....":
+                return "6";
+
+            case "--...":
+                return "7";
+
+            case "---..":
+                return "8";
+
+            case "----.":
+                return "9";
 
             default:
                 return "?";
@@ -1433,9 +1493,9 @@ public class CruelSimpleton : MonoBehaviour {
         string str2 = string.Join("", rule2Input[1].ToArray());
         string str3 = string.Join("", rule2Input[2].ToArray());
 
-        string letter1 = ConvertMorseLetter(str1);
-        string letter2 = ConvertMorseLetter(str2);
-        string letter3 = ConvertMorseLetter(str3);
+        string letter1 = ConvertMorseCharacter(str1);
+        string letter2 = ConvertMorseCharacter(str2);
+        string letter3 = ConvertMorseCharacter(str3);
 
         return str1 + " " + str2 + " " + str3 + " (" + letter1 + letter2 + letter3 + ")";
     }
