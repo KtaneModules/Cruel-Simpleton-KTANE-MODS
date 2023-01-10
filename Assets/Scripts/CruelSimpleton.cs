@@ -581,7 +581,6 @@ public class CruelSimpleton : MonoBehaviour {
         bool unicorn4Active = unicorn && unicornRuleNum == 4;
         bool unicorn5Active = unicorn && unicornRuleNum == 5;
         bool unicorn6Active = unicorn && unicornRuleNum == 6;
-        bool unicorn7Active = unicorn && unicornRuleNum == 7;
         bool unicorn8Active = unicorn && unicornRuleNum == 8;
         bool unicorn9Active = unicorn && unicornRuleNum == 9;
 
@@ -592,7 +591,6 @@ public class CruelSimpleton : MonoBehaviour {
         bool rule4Active = rule4;
         bool rule5Active = rule5;
         bool rule6Active = Rule6();
-        bool rule7Active = Rule7();
         bool rule8Active = rule8;
         bool rule9Active = Rule9();
 
@@ -660,7 +658,6 @@ public class CruelSimpleton : MonoBehaviour {
 
         if (rule2Active || unicorn2Active || 
             rule3Active || unicorn3Active || 
-            rule7Active || unicorn7Active ||
             rule8Active || unicorn8Active)
         {
             return;
@@ -1222,17 +1219,12 @@ public class CruelSimpleton : MonoBehaviour {
     {
         int strikes = Bomb.GetStrikes();
 
-        if (strikes == 0)
+        if (strikes > 0 && strikes <= 2)
         {
-            return 4;
+            return strikes;
         }
 
-        while (strikes > 4)
-        {
-            strikes -= 4;
-        }
-
-        return strikes;
+        return 3;
     }
 
     private List<int> FindRule8Answer()
