@@ -76,7 +76,7 @@ public class CruelSimpleton : MonoBehaviour {
     private int rule3SubmitThreshold;
     private int rule2SubmitThreshold;
 
-
+    private int rule5Answer = 10;
 
 
     private int rule2CurrentIndex;
@@ -125,7 +125,7 @@ public class CruelSimpleton : MonoBehaviour {
 
         blueButton.OnInteract += delegate () { SectionPress(blueButton); return false; };
 
-        blueButton.OnInteract += delegate () { BlueButton(); return false; };
+        blueButton.OnInteract += delegate () { BlueButtonPress(); return false; };
 
         blueButton.OnInteractEnded += delegate () { BlueButtonRelease(); };
 
@@ -230,8 +230,8 @@ public class CruelSimpleton : MonoBehaviour {
         }
 
         else if (rule5)
-        { 
-            Debug.LogFormat("[Cruel Simpleton #{0}] Expecting button to be pressed 69 times", ModuleId);
+        {
+            Debug.LogFormat("[Cruel Simpleton #{0}] Expecting button to be pressed {1} {2}", ModuleId, rule5Answer, rule5Answer == 1 ? "time" : "times");
         }
 
         else if (rule8)
@@ -570,7 +570,7 @@ public class CruelSimpleton : MonoBehaviour {
     #endregion
 
     #region Events
-    private void BlueButton()
+    private void BlueButtonPress()
     {
         blueButton.AddInteractionPunch();
         Audio.PlayGameSoundAtTransform(KMSoundOverride.SoundEffect.BigButtonPress, transform);
@@ -633,7 +633,7 @@ public class CruelSimpleton : MonoBehaviour {
             Debug.Log("Button has been pressed " + buttonPressedNum + " times");
 
 
-            if (buttonPressedNum == 69)
+            if (buttonPressedNum == rule5Answer)
             {
                 rule5Started = false;
 
@@ -761,7 +761,7 @@ public class CruelSimpleton : MonoBehaviour {
                 unicornRuleNum++;
                 Audio.PlaySoundAtTransform(stageClearSound.name, transform);
                 Debug.LogFormat("[Cruel Simpleton #{0}] Stage cleared. Now on stage {1}", ModuleId, unicornRuleNum);
-                Debug.LogFormat("[Cruel Simpleton #{0}] Expecting button to be pressed 69 times", ModuleId);
+                Debug.LogFormat("[Cruel Simpleton #{0}] Expecting button to be pressed {1} {2}", ModuleId, rule5Answer, rule5Answer == 1 ? "time" : "times");
             }
 
             else
