@@ -340,7 +340,7 @@ public class CruelSimpleton : MonoBehaviour {
                 string answer = Rule2Answer();
                 string modedAnswer = Rule2ModdedAnswer();
 
-                Debug.LogFormat("[Cruel Simpleton #{0}] Submitted {1}", ModuleId, modedAnswer);
+                Debug.LogFormat("[Cruel Simpleton #{0}] Submitted: {1}", ModuleId, modedAnswer);
 
                 if (answer == "-... --- -...")
                 {
@@ -425,7 +425,7 @@ public class CruelSimpleton : MonoBehaviour {
                 string inputStr = string.Join("", rule3Input.ToArray());
                 string letter = ConvertMorseCharacter(inputStr);
 
-                Debug.LogFormat("[Cruel Simpleton #{0}] Submitted {1} ({2})", ModuleId, inputStr, letter);
+                Debug.LogFormat("[Cruel Simpleton #{0}] Submitted: {1} ({2})", ModuleId, inputStr, letter);
 
                 if (Rule3Correct())
                 {
@@ -874,7 +874,7 @@ public class CruelSimpleton : MonoBehaviour {
                 input = input.Trim();
                 answer = answer.Trim();
 
-                Debug.LogFormat("[Cruel Simpleton #{0}] Submitted {1} instead of {2}", ModuleId, input, answer);
+                Debug.LogFormat("[Cruel Simpleton #{0}] Submitted: {1} instead of {2}", ModuleId, input, answer);
                 rule8Input.Clear();
                 return;
             }
