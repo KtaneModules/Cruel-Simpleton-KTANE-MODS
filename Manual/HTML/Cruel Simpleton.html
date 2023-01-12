@@ -8,30 +8,39 @@
     <link rel="stylesheet" type="text/css" href="css/normalize.css" />
     <link rel="stylesheet" type="text/css" href="css/main.css" />
     <script src="js/ktane-utils.js"></script>
-    <script>        
-      let playBreak = () => { document.getElementById("breakSound").play(); }
-      let playMorseClear = () => { document.getElementById("clearMorseSound").play(); }
-      let playDash = () => { document.getElementById("dashSound").play(); }
-      let playStageClear = () => { document.getElementById("stageClearSound").play();}
-      let playDot = () => {document.getElementById("dotSound").play();}
+    <script>
+      let playBreak = () => {
+        document.getElementById("breakSound").play();
+      };
+      let playMorseClear = () => {
+        document.getElementById("clearMorseSound").play();
+      };
+      let playDash = () => {
+        document.getElementById("dashSound").play();
+      };
+      let playStageClear = () => {
+        document.getElementById("stageClearSound").play();
+      };
+      let playDot = () => {
+        document.getElementById("dotSound").play();
+      };
     </script>
     <style>
-      p
-      {
-        margin-top:0px;
+      p {
+        margin-top: 0px;
       }
 
-      #no-points
-      {
+      #no-points {
         list-style: none;
         padding: 0px;
       }
 
-      #dotLink, #dashLink,
-      #breakLink, #clearInputLink,
-      #clearStageLink
-      { text-decoration: none;
-
+      #dotLink,
+      #dashLink,
+      #breakLink,
+      #clearInputLink,
+      #clearStageLink {
+        text-decoration: none;
       }
 
       .page-footer::before {
@@ -66,11 +75,11 @@
     </style>
   </head>
   <body>
-    <audio src="./audio/Break.mp3" type="audio/mp3" id="breakSound"></audio>
-    <audio src="./audio/ClearMorse.mp3" type="audio/mp3" id="clearMorseSound"></audio>
-    <audio src="./audio/Dash.mp3" type="audio/mp3" id="dashSound"></audio>
-    <audio src="./audio/StageClear.mp3" type="audio/mp3" id="stageClearSound"></audio>
-    <audio src="./audio/Dot.mp3" type="audio/mp3" id="dotSound"></audio>
+    <audio src="./audio/Break.mp3" id="breakSound"></audio>
+    <audio src="./audio/ClearMorse.mp3" id="clearMorseSound"></audio>
+    <audio src="./audio/Dash.mp3" id="dashSound"></audio>
+    <audio src="./audio/StageClear.mp3" id="stageClearSound"></audio>
+    <audio src="./audio/Dot.mp3" id="dotSound"></audio>
 
     <div class="section">
       <div class="page page-bg-01">
@@ -88,67 +97,85 @@
             up you're dead!
           </p>
 
-          <p>Wanna solve the module? You just press the button. Or do you? Figure out what to do by following the rules below.</p>
+          <p>
+            Wanna solve the module? You just press the button. Or do you? Figure
+            out what to do by following the rules below.
+          </p>
 
           <ol>
             <li>
-              <p>If the serial number contains four numbers and two letters, modulo
-                the last letter's alphabetical position (A=1, B=2, etc.) by 5. Submit this number
-                using Black Hole input via the button.</p>
+              <p>
+                If the serial number contains four numbers and two letters,
+                modulo the last letter's alphabetical position (A=1, B=2, etc.)
+                by 5. Submit this number using Black Hole input via the button.
+              </p>
             </li>
 
             <li>
-              <p>Otherwise, if there is a lit BOB indicator, spell out "BOB" in
+              <p>
+                Otherwise, if there is a lit BOB indicator, spell out "BOB" in
                 Morse Code using the status light to call Bob to come solve the
-                module for you.</p>
+                module for you.
+              </p>
             </li>
 
             <li>
-              <p>Otherwise, if there is a Parallel port and Serial port on the same
-                port plate, submit the first character in the serial number in
-                Morse Code to solve the module.</p>
-              
+              <p>
+                Otherwise, if there is a Parallel port and Serial port on the
+                same port plate, submit the first character in the serial number
+                in Morse Code to solve the module.
+              </p>
             </li>
 
             <li>
-              <p>Otherwise, if there are 4 batteries in 2 holders, hold the button
-                for 7-9 seconds of real time and then release to solve the
-                module.</p>
-              
+              <p>
+                Otherwise, if there are 4 batteries in 2 holders, hold the
+                button for 7-9 seconds of real time and then release to solve
+                the module.
+              </p>
             </li>
 
             <li>
-              <p>Otherwise, if there is a
+              <p>
+                Otherwise, if there is a
                 <a href="https://ktane.timwi.de/HTML/The%20Simpleton.html"
                   >Simpleton</a
                 >
                 module present, mash the Cruel Simpleton's button 10 times to
-                solve it.</p>
-              <p><i
-                >Note: Stopping the mashing before it solves for more than 2
-                seconds of real time WILL strike you and reset your button presses.</i
-              ></p>
-
-              
+                solve it.
+              </p>
+              <p>
+                <i>
+                  Note: Stopping the mashing before it solves for more than 2
+                  seconds of real time WILL strike you and reset your button
+                  presses.
+                </i>
+              </p>
             </li>
 
             <li>
-              <p>Otherwise, if more than half of the bomb's starting time has
+              <p>
+                Otherwise, if more than half of the bomb's starting time has
                 passed, tap the button when the seconds digits are a multiple of
-                10.</p>
-              
+                10.
+              </p>
             </li>
 
             <li>
-              <p>Otherwise, if the number of strikes is greater than 0, tap the
+              <p>
+                Otherwise, if the number of strikes is greater than 0, tap the
                 region of the module corresponding to the number of strikes. If
-                the number of strikes is greater than 2, press section 3.</p>
+                the number of strikes is greater than 2, press section 3.
+              </p>
             </li>
 
             <li>
-              <p>Otherwise, if the number of modules on the bomb is prime, modulo
-                each individual digit by 5. Tap the
-                specific regions of the module in that order to solve the module. (If the result is 0, use 4)</p>
+              <p>
+                Otherwise, if the number of modules on the bomb is prime, modulo
+                each individual digit by 5. Tap the specific regions of the
+                module in that order to solve the module. (If the result is 0,
+                use 4)
+              </p>
             </li>
 
             <li>
@@ -172,16 +199,19 @@
             RJ-45, PS2, and RCA ports on the same port plate, <u>and</u> the
             serial number contains a "U", <b>CONGRATULATIONS!</b> You will need
             to perform <u>all</u> of the rules in numbered order as if they were
-            all true to solve the module.<br /><br />
-            
-            If you get to rule 7 with no strikes, press section 3. <br><br>
+            all true to solve the module.
+          </p>
 
+          <p>If you get to rule 7 with no strikes, press section 3.</p>
+
+          <p>
             <i
               >Remember: Striking will reset any input you have put in for that
               rule's submission. If the Unicorn Rule applies, you will not need
               to re-input previous stages.</i
             >
           </p>
+
           <h3>Black Hole</h3>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -292,18 +322,22 @@
 
           <ul>
             <li>
-              In the above diagrams, a dot represents a tick of the bomb’s
-              countdown timer (i.e., a change in the seconds value) going from
-              left to right.
+              <p>
+                In the above diagrams, a dot represents a tick of the bomb’s
+                countdown timer (i.e., a change in the seconds value) going from
+                left to right.
+              </p>
             </li>
-            <br />
             <li>
-              A vertical line represents a tap on the module. Make sure that you
-              press <em>and</em> release the module between two ticks. <br />
+              <p>
+                A vertical line represents a tap on the module. Make sure that
+                you press <em>and</em> release the module between two ticks.
+              </p>
             </li>
-            <br />
             <li>
-              A bracket indicates holding the module across one or more ticks.
+              <p>
+                A bracket indicates holding the module across one or more ticks.
+              </p>
             </li>
           </ul>
 
@@ -331,14 +365,45 @@
             id="morseImg"
             class="centered-img"
           />
-          
+
           <h3>Audio Clips</h3>
           <ul id="no-points">
-            <li><a href="javascript:void(0)" id="dotLink" onclick="playDot()">▶</a> Dot (Morse Code)</li>
-            <li><a href="javascript:void(0)" id="dashLink" onclick="playDash()">▶</a> Dash (Morse Code)</li>
-            <li><a href="javascript:void(0)" id="breakLink" onclick="playBreak()">▶</a> Break (Morse Code)</li>
-            <li><a href="javascript:void(0)" id="clearInputLink" onclick="playMorseClear()">▶</a> Clear Input (Morse Code)</li>
-            <li><a href="javascript:void(0)" id="clearStageLink" onclick="playStageClear()">▶</a> Passed Stage (Unicorn)</li>
+            <li>
+              <a href="javascript:void(0)" id="dotLink" onclick="playDot()"
+                >▶</a
+              >
+              Dot (Morse Code)
+            </li>
+            <li>
+              <a href="javascript:void(0)" id="dashLink" onclick="playDash()"
+                >▶</a
+              >
+              Dash (Morse Code)
+            </li>
+            <li>
+              <a href="javascript:void(0)" id="breakLink" onclick="playBreak()"
+                >▶</a
+              >
+              Break (Morse Code)
+            </li>
+            <li>
+              <a
+                href="javascript:void(0)"
+                id="clearInputLink"
+                onclick="playMorseClear()"
+                >▶</a
+              >
+              Clear Input (Morse Code)
+            </li>
+            <li>
+              <a
+                href="javascript:void(0)"
+                id="clearStageLink"
+                onclick="playStageClear()"
+                >▶</a
+              >
+              Passed Stage (Unicorn)
+            </li>
           </ul>
         </div>
         <div class="page-footer relative-footer">3</div>
