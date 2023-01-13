@@ -107,8 +107,6 @@ public class CruelSimpleton : MonoBehaviour {
     private bool rule3;
     private bool rule4;
     private bool rule5;
-    private bool rule8;
-
 
     private List<Event> rule1Inputs;
 
@@ -185,9 +183,8 @@ public class CruelSimpleton : MonoBehaviour {
         rule3 = Rule3();
         rule4 = Rule4();
         rule5 = Rule5();
-        rule8 = Rule8();
 
-        string edgeworkRule = unicorn ? "Unicorn" : rule1 ? "1" : rule2 ? "2" : rule3 ? "3" : rule4 ? "4" : rule5 ? "5" : rule8 ? "8" : "N/A"; 
+        string edgeworkRule = unicorn ? "Unicorn" : rule1 ? "1" : rule2 ? "2" : rule3 ? "3" : rule4 ? "4" : rule5 ? "5" : "N/A"; 
 
         Debug.LogFormat("[Cruel Simpleton #{0}] Edgework Rule: {1}", ModuleId, edgeworkRule);
 
@@ -233,15 +230,6 @@ public class CruelSimpleton : MonoBehaviour {
         {
             Debug.LogFormat("[Cruel Simpleton #{0}] Expecting button to be pressed {1} {2}", ModuleId, rule5Answer, rule5Answer == 1 ? "time" : "times");
         }
-
-        else if (rule8)
-        {
-            rule8Answer = FindRule8Answer();
-            rule8Input = null;
-            Debug.LogFormat("[Cruel Simpleton #{0}] Expecting: {1}", ModuleId, string.Join(" ", rule8Answer.Select(x => x.ToString()).ToArray()));
-
-        }
-
     }
 
     void Update() 
@@ -564,7 +552,7 @@ public class CruelSimpleton : MonoBehaviour {
 
     private bool Rule9()
     {
-        return !unicorn && !rule1 && !rule2 && !rule3 && !rule4 && !rule5 && !Rule6() && !Rule7() && !rule8;
+        return !unicorn && !rule1 && !rule2 && !rule3 && !rule4 && !rule5 && !Rule6() && !Rule7() && !Rule8();
     }
 
     #endregion
@@ -591,7 +579,7 @@ public class CruelSimpleton : MonoBehaviour {
         bool rule4Active = rule4;
         bool rule5Active = rule5;
         bool rule6Active = Rule6();
-        bool rule8Active = rule8;
+        bool rule8Active = Rule8();
         bool rule9Active = Rule9();
 
         if (ModuleSolved)
@@ -802,7 +790,7 @@ public class CruelSimpleton : MonoBehaviour {
         bool rule5Active = rule5;
         bool rule6Active = Rule6();
         bool rule7Active = Rule7();
-        bool rule8Active = rule8;
+        bool rule8Active = Rule8();
         bool rule9Active = Rule9();
 
         if (ModuleSolved)
@@ -955,7 +943,7 @@ public class CruelSimpleton : MonoBehaviour {
         bool rule5Active = rule5;
         bool rule6Active = Rule6();
         bool rule7Active = Rule7();
-        bool rule8Active = rule8;
+        bool rule8Active = Rule8();
         bool rule9Active = Rule9();
 
         bool unicorn1Active = unicorn && unicornRuleNum == 1;
