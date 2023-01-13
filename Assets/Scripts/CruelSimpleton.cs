@@ -843,6 +843,11 @@ public class CruelSimpleton : MonoBehaviour {
                 rule8Input = new List<int>();
             }
 
+            if (rule8Answer == null)
+            {
+                rule8Answer = FindRule8Answer();
+            }
+
             rule8Input.Add(sectionNum);
 
             int index = rule8Input.Count - 1;
@@ -862,7 +867,7 @@ public class CruelSimpleton : MonoBehaviour {
                 input = input.Trim();
                 answer = answer.Trim();
 
-                Debug.LogFormat("[Cruel Simpleton #{0}] Submitted: {1} instead of {2}", ModuleId, input, answer);
+                Debug.LogFormat("[Cruel Simpleton #{0}] Submitted: {1} instead of {2} (Rule 8)", ModuleId, input, answer);
                 rule8Input.Clear();
                 return;
             }
@@ -1549,8 +1554,6 @@ public class CruelSimpleton : MonoBehaviour {
             }
         }
     }
-
-
     #endregion
 
 
