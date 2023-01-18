@@ -116,6 +116,10 @@ public class CruelSimpleton : MonoBehaviour {
     int ModuleId;
     private bool ModuleSolved;
 
+    //fixes a bug where two strikes are given. One from rule 7 and another from rule 6,
+    //rule 6 shoudln't apply
+    private bool strikeAlreadyGiven;
+
 
     void Awake()
     {
@@ -652,10 +656,11 @@ public class CruelSimpleton : MonoBehaviour {
         }
 
 
-        if (!rule6Active && !unicorn6Active && !rule9Active && !unicorn9Active)
+        if (!rule6Active && !unicorn6Active && !rule9Active && !unicorn9Active && !strikeAlreadyGiven)
         {
             GetComponent<KMBombModule>().HandleStrike();
             Debug.LogFormat("[Cruel Simpleton #{0}] Strike! Pressed the button when rule 6 didn't apply", ModuleId);
+            strikeAlreadyGiven = false;
             return;
         }
 
@@ -772,6 +777,11 @@ public class CruelSimpleton : MonoBehaviour {
         string sectionName = SectionToName(section);
         int sectionNum = SectionToInt(section);
 
+        if (sectionNum == 4)
+        { 
+            Debug.Log("Pressed section button");
+        }
+
         bool unicorn1Active = unicorn && unicornRuleNum == 1;
         bool unicorn2Active = unicorn && unicornRuleNum == 2;
         bool unicorn3Active = unicorn && unicornRuleNum == 3;
@@ -828,6 +838,7 @@ public class CruelSimpleton : MonoBehaviour {
 
             else
             {
+                strikeAlreadyGiven = true;
                 GetComponent<KMBombModule>().HandleStrike();
             }
 
