@@ -84,7 +84,7 @@ public class CruelSimpleton : MonoBehaviour {
     private int submitting;
 
 
-    
+
     private bool mouseDown = false;
 
 
@@ -119,6 +119,45 @@ public class CruelSimpleton : MonoBehaviour {
     //rule 6 shoudln't apply
     private bool strikeAlreadyGiven;
 
+    Dictionary<string, string> morse = new Dictionary<string, string>()
+    {
+        { ".-", "A" },
+        { "-...", "B"},
+        { "-.-.", "C" },
+        { "-..", "D" },
+        { ".", "E" },
+        { "..-.", "F" },
+        { "--.", "G" },
+        { "....", "H"},
+        { "..", "I" },
+        { ".---", "J"},
+        { "-.-", "K" },
+        { ".-..", "L"},
+        { "--", "M"},
+        {"-.", "N"},
+        { "---", "O"},
+        { ".--.", "P"},
+        { "--.-", "Q"},
+        { ".-.", "R"},
+        { "...", "S"},
+        { "-","T"},
+        { "..-", "U"},
+        { "...-", "V"},
+        { ".--", "W"},
+        { "-..-", "X"},
+        { "-.--", "Y"},
+        { "--..", "Z"},
+        { "-----", "0"},
+        { ".----", "1"},
+        { "..---", "2"},
+        { "...--", "3"},
+        { "....-", "4"},
+        { ".....", "5"},
+        { "-....", "6"},
+        { "--...", "7"},
+        {"---..", "8"},
+        { "----.", "9"}
+    };
 
     void Awake()
     {
@@ -219,7 +258,7 @@ public class CruelSimpleton : MonoBehaviour {
         else if (rule3)
         {
             rule3Answer = FindRule3Answer();
-            string letter = ConvertMorseCharacter(rule3Answer);
+            string letter = morse[rule3Answer];
             Debug.LogFormat("[Cruel Simpleton #{0}] Expecting: {1} ({2})", ModuleId, rule3Answer, letter);
         }
 
@@ -413,7 +452,8 @@ public class CruelSimpleton : MonoBehaviour {
             if (submitting == morseSubmitThreshold)
             {
                 string inputStr = string.Join("", rule3Input.ToArray());
-                string letter = ConvertMorseCharacter(inputStr);
+
+                string letter = morse.Keys.Contains(inputStr) ? morse[inputStr] : "?";
 
                 Debug.LogFormat("[Cruel Simpleton #{0}] Submitted: {1} ({2})", ModuleId, inputStr, letter);
 
@@ -1259,124 +1299,6 @@ public class CruelSimpleton : MonoBehaviour {
 
     #region Helper Methods
 
-    private string ConvertMorseCharacter(string morse)
-    {
-        switch (morse)
-        {
-            case ".-":
-                return "A";
-
-            case "-...":
-                return "B";
-
-            case "-.-.":
-                return "C";
-
-            case "-..":
-                return "D";
-
-            case ".":
-                return "E";
-
-            case "..-.":
-                return "F";
-
-            case "--.":
-                return "G";
-
-            case "....":
-                return "H";
-
-            case "..":
-                return "I";
-
-            case ".---":
-                return "J";
-
-            case "-.-":
-                return "K";
-
-            case ".-..":
-                return "L";
-
-            case "--":
-                return "M";
-
-            case "-.":
-                return "N";
-
-            case "---":
-                return "O";
-
-            case ".--.":
-                return "P";
-
-            case "--.-":
-                return "Q";
-
-            case ".-.":
-                return "R";
-
-            case "...":
-                return "S";
-
-            case "-":
-                return "T";
-
-            case "..-":
-                return "U";
-
-            case "...-":
-                return "V";
-
-            case ".--":
-                return "W";
-
-            case "-..-":
-                return "X";
-
-            case "-.--":
-                return "Y";
-
-            case "--..":
-                return "Z";
-
-            case "-----":
-                return "0";
-
-            case ".----":
-                return "1";
-
-            case "..---":
-                return "2";
-
-            case "...--":
-                return "3";
-
-            case "....-":
-                return "4";
-
-            case ".....":
-                return "5";
-
-            case "-....":
-                return "6";
-
-            case "--...":
-                return "7";
-
-            case "---..":
-                return "8";
-
-            case "----.":
-                return "9";
-
-            default:
-                return "?";
-        }
-    }
-
-
     private int SectionToInt(KMSelectable section)
     {
         if (section == topLeftSection)
@@ -1487,9 +1409,9 @@ public class CruelSimpleton : MonoBehaviour {
         string str2 = string.Join("", rule2Input[1].ToArray());
         string str3 = string.Join("", rule2Input[2].ToArray());
 
-        string letter1 = ConvertMorseCharacter(str1);
-        string letter2 = ConvertMorseCharacter(str2);
-        string letter3 = ConvertMorseCharacter(str3);
+        string letter1 = morse.Keys.Contains(str1) ? morse[str1] : "?";
+        string letter2 = morse.Keys.Contains(str2) ? morse[str2] : "?";
+        string letter3 = morse.Keys.Contains(str3) ? morse[str3] : "?";
 
         return str1 + " " + str2 + " " + str3 + " (" + letter1 + letter2 + letter3 + ")";
     }
@@ -1726,10 +1648,6 @@ public class CruelSimpleton : MonoBehaviour {
                         break;
                 }
             }
-
-
-
-
         }
 
         //hold blue button
@@ -1795,8 +1713,6 @@ public class CruelSimpleton : MonoBehaviour {
             yield return string.Format("sendtochaterror Invalid command");
             yield break;
         }
-
-
 
     yield return null;
    }
