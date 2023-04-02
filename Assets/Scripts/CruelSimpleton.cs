@@ -73,8 +73,7 @@ public class CruelSimpleton : MonoBehaviour {
     private int dashThreshold;
     private int dotThreshold;
     private int breakThreshold;
-    private int rule3SubmitThreshold;
-    private int rule2SubmitThreshold;
+    private int morseSubmitThreshold;
 
     private int rule5Answer = 10;
 
@@ -176,10 +175,9 @@ public class CruelSimpleton : MonoBehaviour {
 
         dotThreshold = 50;
         dashThreshold = 150;
-        rule3SubmitThreshold = 125;
+        morseSubmitThreshold = 300;
 
         breakThreshold = 125;
-        rule2SubmitThreshold = 300;
 
         unicorn = Unicorn();
         rule1 = Rule1();
@@ -327,7 +325,7 @@ public class CruelSimpleton : MonoBehaviour {
                 rule2CurrentIndex++;
             }
 
-            else if (submitting == rule2SubmitThreshold)
+            else if (submitting == morseSubmitThreshold)
             {
                 string answer = Rule2Answer();
                 string modedAnswer = Rule2ModdedAnswer();
@@ -412,7 +410,7 @@ public class CruelSimpleton : MonoBehaviour {
                 submitting++;
             }
 
-            if (submitting == rule3SubmitThreshold)
+            if (submitting == morseSubmitThreshold)
             {
                 string inputStr = string.Join("", rule3Input.ToArray());
                 string letter = ConvertMorseCharacter(inputStr);
@@ -1577,8 +1575,230 @@ public class CruelSimpleton : MonoBehaviour {
     private readonly string TwitchHelpMessage = @"Use !{0} to do something.";
 #pragma warning restore 414
 
-   IEnumerator ProcessTwitchCommand (string Command) {
-      yield return null;
+   IEnumerator ProcessTwitchCommand (string Command) 
+   {
+        string[] commandArr = Command.ToUpper().Trim().Split(' ');
+
+        int num;
+
+        List<int> times = new List<int>();
+
+        //pressing section
+        if (commandArr[0] == "PRESS" && int.TryParse(commandArr[1], out num))
+        {
+            //pressing section at a certain time
+            if (commandArr.Length > 3 && commandArr[2] == "AT")
+            {
+                if (num < 1 && num > 4)
+                {
+                    yield return string.Format("sendtochaterror {0} is not a valid section", num);
+                    yield break;
+                }
+
+                for (int i = 3; i < commandArr.Length; i++)
+                {
+                    int time;
+
+                    if (int.TryParse(commandArr[i], out time) && time >= 0 && time <= 59)
+                    {
+                        times.Add(time);
+                    }
+
+                    else
+                    {
+                        yield return string.Format("sendtochaterror {0} is not a valid time", commandArr[i]);
+                        yield break;
+                    }
+                }
+
+                yield return new WaitUntil(() => times.Contains((int)Bomb.GetTime() % 60));
+
+                switch (num)
+                {
+                    case 1: topLeftSection.OnInteract(); break;
+                    case 2: bottomLeftSection.OnInteract(); break;
+                    case 3: bottomRightSection.OnInteract(); break;
+                    case 4: blueButton.OnInteract(); break;
+
+                    default:
+                        yield return string.Format("sendtochaterror {0} is not a valid section", num);
+                        yield break;
+
+                }
+
+            }
+
+            //press multiple sections
+            else
+            {
+                string strNum = "" + num;
+
+                char invalidChar = '\0';
+                try
+                {
+                    invalidChar = strNum.Where(x => int.Parse("" + x) < 1 || int.Parse("" + x) > 4).First();
+                }
+
+                catch
+                { }
+
+                if (invalidChar != '\0')
+                {
+                    yield return string.Format("sendtochaterror {0} is not a valid section", invalidChar);
+                    yield break;
+                }
+
+                for (int i = 0; i < strNum.Length; i++)
+                {
+                    switch (int.Parse("" + strNum[i]))
+                    {
+                        case 1: topLeftSection.OnInteract(); break;
+                        case 2: bottomLeftSection.OnInteract(); break;
+                        case 3: bottomRightSection.OnInteract(); break;
+                        case 4: blueButton.OnInteract(); break;
+                    }
+                }
+            }
+        }
+
+        //black hole
+        else if (commandArr[0] == "BLACK")
+        {
+            //BLACK MUST BE FOLLOWED BY A HOLD OR PRESS
+            if (commandArr.Length == 1 || (commandArr[1] != "HOLD" && commandArr[1] != "PRESS"))
+            {
+                yield return string.Format("sendtochaterror \"Black\" must be followed by \"Hold\" or \"Press\"");
+                yield break;
+            }
+
+            //check to see if there is number folloewed by every hold command
+            for (int i = 1; i < commandArr.Length; i++)
+            {
+                if (commandArr[i] == "HOLD" && (i + 1 == commandArr.Length || !int.TryParse(commandArr[i + 1], out num)))
+                {
+                    yield return string.Format("sendtochaterror Every hold command must be followed by a number");
+                    yield break;
+                }
+            }
+
+            //parsing input
+            List<Event> events = new List<Event>();
+
+            for (int i = 0; i < commandArr.Length; i++)
+            {
+                string s = commandArr[i];
+
+                switch (s)
+                {
+                    case "TAP":
+                        events.Add(Event.MouseUp);
+                        events.Add(Event.MouseDown);
+                        break;
+
+                    case "HOLD":
+                        events.Add(Event.MouseDown);
+                        for (int j = 0; j < int.Parse(commandArr[i + 1]); j++)
+                        {
+                            events.Add(Event.Tick);
+                        }
+
+                        events.Add(Event.MouseUp);
+                        break;
+                }
+            }
+
+            //doing input
+            foreach (Event e in events)
+            {
+                switch (e)
+                {
+                    case Event.MouseUp:
+                        blueButton.OnInteract();
+                        break;
+
+                    case Event.MouseDown:
+                        blueButton.OnInteractEnded();
+                        break;
+
+                    case Event.Tick:
+                        var time = (int)Bomb.GetTime();
+                        yield return new WaitUntil(() => (int)Bomb.GetTime() != time);
+                        break;
+                }
+            }
+
+
+
+
+        }
+
+        //hold blue button
+        else if (commandArr[0] == "HOLD")
+        {
+            //check to see if the player added time at the end
+
+            blueButton.OnInteract();
+
+            int sec;
+
+            if (commandArr.Length == 1 || !int.TryParse(commandArr[1], out sec))
+            {
+                yield return string.Format("sendtochaterror Missing how long to hold the button");
+                yield break;
+            }
+
+            yield return new WaitForSeconds(sec);
+
+            blueButton.OnInteractEnded();
+        }
+
+        //morse code
+        else if (commandArr[0] == "." || commandArr[0] == "-")
+        {
+            //verify each command is just . and -
+
+            foreach (string c in commandArr)
+            {
+                if (c.Where(x => x != '.' || x != '-').Any())
+                {
+                    yield return string.Format("sendtochaterror Morse code must be submitted with just . and -");
+                    yield break;
+                }
+            }
+
+            foreach (string command in commandArr)
+            {
+                foreach (char c in command)
+                {
+                    if (c == '.')
+                    {
+                        statusLightButton.OnInteract();
+                        statusLightButton.OnInteractEnded();
+                    }
+
+                    else
+                    {
+                        statusLightButton.OnInteract();
+                        yield return new WaitUntil(() => dashOrDot > dotThreshold && dashOrDot <= dashThreshold);
+                        statusLightButton.OnInteractEnded();
+                    }
+                }
+
+                yield return new WaitUntil(() => submitting >= breakThreshold);
+            }
+
+            yield return new WaitUntil(() => submitting >= morseSubmitThreshold);
+        }
+
+        else
+        {
+            yield return string.Format("sendtochaterror Invalid command");
+            yield break;
+        }
+
+
+
+    yield return null;
    }
 
    IEnumerator TwitchHandleForcedSolve () {
