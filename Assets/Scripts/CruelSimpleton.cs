@@ -1493,13 +1493,14 @@ public class CruelSimpleton : MonoBehaviour {
 
 
 
-#pragma warning disable 414
+#pragma warning disable 414!
     private readonly string TwitchHelpMessage = @"Use !{0} to do something.";
 #pragma warning restore 414
 
    IEnumerator ProcessTwitchCommand (string Command) 
    {
         string[] commandArr = Command.ToUpper().Trim().Split(' ');
+        yield return null;
 
         int num;
 
@@ -1593,12 +1594,12 @@ public class CruelSimpleton : MonoBehaviour {
                 yield break;
             }
 
-            //check to see if there is number folloewed by every hold command
+            //check to see if there is number folloewed by every hold or wait command
             for (int i = 1; i < commandArr.Length; i++)
             {
-                if (commandArr[i] == "HOLD" && (i + 1 == commandArr.Length || !int.TryParse(commandArr[i + 1], out num)))
+                if ((commandArr[i] == "HOLD" || commandArr[i] == "WAIT") && (i + 1 == commandArr.Length || !int.TryParse(commandArr[i + 1], out num)))
                 {
-                    yield return string.Format("sendtochaterror Every hold command must be followed by a number");
+                    yield return string.Format("sendtochaterror Every hold and wait command must be followed by a number");
                     yield break;
                 }
             }
@@ -1612,9 +1613,9 @@ public class CruelSimpleton : MonoBehaviour {
 
                 switch (s)
                 {
-                    case "TAP":
-                        events.Add(Event.MouseUp);
+                    case "PRESS":
                         events.Add(Event.MouseDown);
+                        events.Add(Event.MouseUp);
                         break;
 
                     case "HOLD":
@@ -1623,11 +1624,19 @@ public class CruelSimpleton : MonoBehaviour {
                         {
                             events.Add(Event.Tick);
                         }
-
                         events.Add(Event.MouseUp);
+                        break;
+
+                    case "WAIT":
+                        for (int j = 0; j < int.Parse(commandArr[i + 1]); j++)
+                        {
+                            events.Add(Event.Tick);
+                        }
                         break;
                 }
             }
+
+            Debug.Log("Twitch Events: " + string.Join(", ", events.Select(e => e.ToString()).ToArray()));
 
             //doing input
             foreach (Event e in events)
@@ -1635,11 +1644,11 @@ public class CruelSimpleton : MonoBehaviour {
                 switch (e)
                 {
                     case Event.MouseUp:
-                        blueButton.OnInteract();
+                        blueButton.OnInteractEnded();
                         break;
 
                     case Event.MouseDown:
-                        blueButton.OnInteractEnded();
+                        blueButton.OnInteract();
                         break;
 
                     case Event.Tick:

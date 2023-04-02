@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: Rule1
   m_EditorClassIdentifier: 
   SerialNumberType: 2
-  CustomSerialNumber: 111AE1
+  CustomSerialNumber: 111AA1
   TwoFactorResetTime: 30
   Widgets:
   - Type: 0
