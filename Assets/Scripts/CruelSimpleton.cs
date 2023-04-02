@@ -1499,10 +1499,14 @@ public class CruelSimpleton : MonoBehaviour {
 
    IEnumerator ProcessTwitchCommand (string Command) 
    {
+
+        
         string[] commandArr = Command.ToUpper().Trim().Split(' ');
         yield return null;
 
         int num;
+
+        Debug.Log(Command);
 
         List<int> times = new List<int>();
 
@@ -1680,13 +1684,13 @@ public class CruelSimpleton : MonoBehaviour {
         }
 
         //morse code
-        else if (commandArr[0] == "." || commandArr[0] == "-")
+        else if (commandArr[0][0] == '.' || commandArr[0][0] == '-')
         {
             //verify each command is just . and -
 
             foreach (string c in commandArr)
             {
-                if (c.Where(x => x != '.' || x != '-').Any())
+                if (c.Where(x => x != '.' && x != '-').Any())
                 {
                     yield return string.Format("sendtochaterror Morse code must be submitted with just . and -");
                     yield break;
@@ -1711,10 +1715,13 @@ public class CruelSimpleton : MonoBehaviour {
                     }
                 }
 
+                //wait for break
                 yield return new WaitUntil(() => submitting >= breakThreshold);
             }
 
+            //wait for more submission
             yield return new WaitUntil(() => submitting >= morseSubmitThreshold);
+
         }
 
         else
@@ -1722,8 +1729,6 @@ public class CruelSimpleton : MonoBehaviour {
             yield return string.Format("sendtochaterror Invalid command");
             yield break;
         }
-
-    yield return null;
    }
 
    IEnumerator TwitchHandleForcedSolve () {
