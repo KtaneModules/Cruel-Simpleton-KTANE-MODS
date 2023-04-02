@@ -1494,7 +1494,7 @@ public class CruelSimpleton : MonoBehaviour {
 
 
 #pragma warning disable 414!
-    private readonly string TwitchHelpMessage = @"Use !{0} to do something.";
+    private readonly string TwitchHelpMessage = @"For black hole input, use `!{0} black` followed by `hold #` to hold the button # number of tick down, `wait #` to wait # ticks, and `press` to tap and immeadialty relese. Can be chained by having a space in between. For morse code input, use !{0} followed by . and -. Ex .- = A. Chain codes with a space between. For section presses, use !{0} press followed by the number of the secion. Use !{0} press 1 at 30 to press the section at 30 seconds. Sections can be chained with no spaces between. Times can be chained with spaces between";
 #pragma warning restore 414
 
    IEnumerator ProcessTwitchCommand (string Command) 
@@ -1674,7 +1674,7 @@ public class CruelSimpleton : MonoBehaviour {
                 yield break;
             }
 
-            yield return new WaitForSeconds(sec);
+            yield return new WaitUntil(() => Math.Abs(rule4EndingTime - rule4StartingTime) >= sec);
 
             blueButton.OnInteractEnded();
         }
