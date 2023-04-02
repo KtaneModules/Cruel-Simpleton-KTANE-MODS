@@ -295,7 +295,7 @@ public class CruelSimpleton : MonoBehaviour {
             if (timeOffset <= 0 && !ModuleSolved)
             {
                 GetComponent<KMBombModule>().HandleStrike();
-                Debug.Log("Strike! 2 seconds have passed since you pressed the button. Restarting module");
+                Debug.LogFormat("Strike! 2 seconds have passed since you pressed the button. Restarting module");
                 rule5Started = false;
                 buttonPressedNum = 0;
                 timeOffset = 2;
@@ -1499,8 +1499,6 @@ public class CruelSimpleton : MonoBehaviour {
 
    IEnumerator ProcessTwitchCommand (string Command) 
    {
-
-        
         string[] commandArr = Command.ToUpper().Trim().Split(' ');
         yield return null;
 
@@ -1538,7 +1536,10 @@ public class CruelSimpleton : MonoBehaviour {
                     }
                 }
 
-                yield return new WaitUntil(() => times.Contains((int)Bomb.GetTime() % 60));
+                while (!times.Contains((int)Bomb.GetTime() % 60))
+                {
+                    yield return "trycancel input has been cancelled";
+                }
 
                 switch (num)
                 {
@@ -1550,9 +1551,7 @@ public class CruelSimpleton : MonoBehaviour {
                     default:
                         yield return string.Format("sendtochaterror {0} is not a valid section", num);
                         yield break;
-
                 }
-
             }
 
             //press multiple sections
@@ -1640,8 +1639,6 @@ public class CruelSimpleton : MonoBehaviour {
                 }
             }
 
-            Debug.Log("Twitch Events: " + string.Join(", ", events.Select(e => e.ToString()).ToArray()));
-
             //doing input
             foreach (Event e in events)
             {
@@ -1678,6 +1675,7 @@ public class CruelSimpleton : MonoBehaviour {
                 yield break;
             }
 
+            
             yield return new WaitUntil(() => Math.Abs(rule4EndingTime - rule4StartingTime) >= sec);
 
             blueButton.OnInteractEnded();
@@ -1690,7 +1688,7 @@ public class CruelSimpleton : MonoBehaviour {
 
             foreach (string c in commandArr)
             {
-                if (c.Where(x => x != '.' && x != '-').Any())
+                if (c.Any(x => x != '.' && x != '-'))
                 {
                     yield return string.Format("sendtochaterror Morse code must be submitted with just . and -");
                     yield break;
@@ -1710,17 +1708,20 @@ public class CruelSimpleton : MonoBehaviour {
                     else
                     {
                         statusLightButton.OnInteract();
-                        yield return new WaitUntil(() => dashOrDot > dotThreshold && dashOrDot <= dashThreshold);
+                        yield return new WaitUntil(() => dashOrDot > dotThreshold);
                         statusLightButton.OnInteractEnded();
                     }
                 }
 
                 //wait for break
-                yield return new WaitUntil(() => submitting >= breakThreshold);
+                yield return new WaitUntil(() => submitting >= breakThreshold  );
+
             }
 
             //wait for more submission
-            yield return new WaitUntil(() => submitting >= morseSubmitThreshold);
+            yield return new WaitUntil(() => submitting == 0);
+
+
 
         }
 
