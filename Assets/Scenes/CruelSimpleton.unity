@@ -348,7 +348,7 @@ Prefab:
         type: 2}
       propertyPath: EdgeworkConfiguration
       value: 
-      objectReference: {fileID: 11400000, guid: 561149f51534459459085d9052c39af9,
+      objectReference: {fileID: 11400000, guid: 0cf9d140269f04f42bb3515355b495fa,
         type: 2}
     - target: {fileID: 114848120511536268, guid: 8814ea52310d2614a9feda02ec355ae4,
         type: 2}

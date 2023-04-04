@@ -11,9 +11,6 @@ using Rnd = UnityEngine.Random;
  * TO DO: 
  * -AUTO SOLVER
  * --Unicorn
- * --Rule 1
- * --Rule 3
- * --Rule 4
  * --Rule 5
  * --Rule 6
  * --Rule 7
@@ -1411,17 +1408,20 @@ public class CruelSimpleton : MonoBehaviour {
         string[] commandArr = Command.ToUpper().Trim().Split(' ');
         yield return null;
 
-        int num;
 
         List<int> times = new List<int>();
 
         //pressing section
-        if (commandArr[0] == "PRESS" && int.TryParse(commandArr[1], out num))
+        if (commandArr[0] == "PRESS" && ValidNum(commandArr[1]))
         {
             //pressing section at a certain time
             if (commandArr.Length > 3 && commandArr[2] == "AT")
             {
-                if (num < 1 && num > 4)
+                int num;
+
+                int.TryParse(commandArr[1], out num);
+
+                if (!Between1And4(commandArr[1]))
                 {
                     yield return string.Format("sendtochaterror {0} is not a valid section", num);
                     yield break;
@@ -1464,12 +1464,10 @@ public class CruelSimpleton : MonoBehaviour {
             //press multiple sections
             else
             {
-                string strNum = "" + num;
-
                 char invalidChar = '\0';
                 try
                 {
-                    invalidChar = strNum.Where(x => int.Parse("" + x) < 1 || int.Parse("" + x) > 4).First();
+                    invalidChar = commandArr[1].Where(x => int.Parse("" + x) < 1 || int.Parse("" + x) > 4).First();
                 }
 
                 catch
@@ -1481,9 +1479,9 @@ public class CruelSimpleton : MonoBehaviour {
                     yield break;
                 }
 
-                for (int i = 0; i < strNum.Length; i++)
+                for (int i = 0; i < commandArr[1].Length; i++)
                 {
-                    switch (int.Parse("" + strNum[i]))
+                    switch (int.Parse("" + commandArr[1][i]))
                     {
                         case 1: topLeftSection.OnInteract(); break;
                         case 2: bottomLeftSection.OnInteract(); break;
@@ -1504,6 +1502,7 @@ public class CruelSimpleton : MonoBehaviour {
                 yield break;
             }
 
+            int num;
             //check to see if there is number folloewed by every hold or wait command
             for (int i = 1; i < commandArr.Length; i++)
             {
@@ -1745,5 +1744,15 @@ public class CruelSimpleton : MonoBehaviour {
         string[] arr = rule8Answer.Select(x => x.ToString()).ToArray();
 
         return "press " + string.Join("", arr);
+    }
+
+    private bool ValidNum(string num)
+    {
+        return !num.Select(c => Char.IsDigit(c)).Contains(false);
+    }
+
+    private bool Between1And4(string num)
+    { 
+        return !num.Select(c => int.Parse("" + c) < 1 || int.Parse("" + c) > 4).Contains(true);
     }
 }
