@@ -386,9 +386,10 @@ public class CruelSimpleton : MonoBehaviour {
                     {
                         //play stage clear sound
                         unicornRuleNum++;
+                        submitting = 0;
                         Audio.PlaySoundAtTransform(stageClearSound.name, transform);
                         Debug.LogFormat("[Cruel Simpleton #{0}] Stage cleared. Now on stage {1}", ModuleId, unicornRuleNum);
-                        Debug.LogFormat("[Cruel Simpleton #{0}] Expecting: {1} ({2})", ModuleId, rule3Answer, Bomb.GetSerialNumberLetters().First());
+                        Debug.LogFormat("[Cruel Simpleton #{0}] Expecting: {1} ({2})", ModuleId, rule3Answer, Bomb.GetSerialNumber().First());
                     }
 
                     else
@@ -471,6 +472,7 @@ public class CruelSimpleton : MonoBehaviour {
                     if (unicorn && unicornRuleNum == 3)
                     {
                         unicornRuleNum++;
+                        submitting = 0;
                         Audio.PlaySoundAtTransform(stageClearSound.name, transform);
                         Debug.LogFormat("[Cruel Simpleton #{0}] Stage cleared. Now on stage {1}", ModuleId, unicornRuleNum);
                         Debug.LogFormat("[Cruel Simpleton #{0}] Expecting button to be held for 8 seconds", ModuleId);
@@ -1645,7 +1647,12 @@ public class CruelSimpleton : MonoBehaviour {
             yield return ProcessTwitchCommand("hold 7");
             yield return ProcessTwitchCommand("press 4444444444");
             yield return ProcessTwitchCommand("press 4 at 0 10 20 30 40 50");
-            yield return ProcessTwitchCommand("press " + (rule7Answer + 1));
+
+
+            yield return ProcessTwitchCommand("press " + (FindRule7Answer()));
+
+            rule8Answer = FindRule8Answer();
+
             yield return ProcessTwitchCommand(GetRule8TPAnswer());
             yield return ProcessTwitchCommand("press 4");
         }
@@ -1687,8 +1694,8 @@ public class CruelSimpleton : MonoBehaviour {
 
         else if (Rule8())
         {
+            rule8Answer = FindRule8Answer();
             yield return ProcessTwitchCommand(GetRule8TPAnswer());
-
         }
 
         else
