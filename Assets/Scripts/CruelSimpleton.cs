@@ -7,6 +7,21 @@ using UnityEngine;
 using KModkit;
 using Rnd = UnityEngine.Random;
 
+/*
+ * TO DO: 
+ * -AUTO SOLVER
+ * --Unicorn
+ * --Rule 1
+ * --Rule 2
+ * --Rule 3
+ * --Rule 4
+ * --Rule 5
+ * --Rule 6
+ * --Rule 7
+ * --Rule 8
+ * --Rule 9
+ */
+
 public class CruelSimpleton : MonoBehaviour {
 
     public KMBombInfo Bomb;
@@ -1144,116 +1159,11 @@ public class CruelSimpleton : MonoBehaviour {
 
     private string FindRule3Answer()
     {
-        switch (Bomb.GetSerialNumber().First())
-        {
-            case 'A':
-                return ".-";
+        string firstChar = "" + Bomb.GetSerialNumber().First();
 
-            case 'B':
-                return "-...";
+        KeyValuePair<string, string> pair = morse.First(p => morse[p.Key] == firstChar);
 
-            case 'C':
-                return "-.-.";
-
-            case 'D':
-                return "-..";
-
-            case 'E':
-                return ".";
-
-            case 'F':
-                return "..-.";
-
-            case 'G':
-                return "--.";
-
-            case 'H':
-                return "....";
-
-            case 'I':
-                return "..";
-
-            case 'J':
-                return ".---";
-
-            case 'K':
-                return "-.-";
-
-            case 'L':
-                return ".-..";
-
-            case 'M':
-                return "--";
-
-            case 'N':
-                return "-.";
-
-            case 'O':
-                return "---";
-
-            case 'P':
-                return ".--.";
-
-            case 'Q':
-                return "--.-";
-
-            case 'R':
-                return ".-.";
-
-            case 'S':
-                return "...";
-
-            case 'T':
-                return "-";
-
-            case 'U':
-                return "..-";
-
-            case 'V':
-                return "...-";
-
-            case 'W':
-                return ".--";
-
-            case 'X':
-                return "-..-";
-
-            case 'Y':
-                return "-.--";
-
-            case 'Z':
-                return "--..";
-
-            case '0':
-                return "-----";
-
-            case '1':
-                return ".----";
-
-            case '2':
-                return "..---";
-
-            case '3':
-                return "...--";
-
-            case '4':
-                return "....-";
-
-            case '5':
-                return ".....";
-
-            case '6':
-                return "-....";
-
-            case '7':
-                return "--...";
-
-            case '8':
-                return "---..";
-
-            default: //9
-                return "----.";
-        }
+        return pair.Key;
     }
 
 
@@ -1732,6 +1642,106 @@ public class CruelSimpleton : MonoBehaviour {
    }
 
    IEnumerator TwitchHandleForcedSolve () {
-      yield return null;
-   }
+
+        if (unicorn)
+        {
+            yield return ProcessTwitchCommand(GetRule1TPAnswer());
+            yield return ProcessTwitchCommand("-... --- -...");
+            yield return ProcessTwitchCommand(rule3Answer);
+            yield return ProcessTwitchCommand("hold 7");
+            yield return ProcessTwitchCommand("press 4444444444");
+            yield return ProcessTwitchCommand("press 4 at 0 10 20 30 40 50");
+            yield return ProcessTwitchCommand("press " + rule7Answer);
+            yield return ProcessTwitchCommand(GetRule8TPAnswer());
+            yield return ProcessTwitchCommand("press 4");
+        }
+
+        else if (rule1)
+        {
+            yield return ProcessTwitchCommand(GetRule1TPAnswer());
+        }
+
+        else if (rule2)
+        {
+            yield return ProcessTwitchCommand("-... --- -...");
+        }
+
+        else if (rule3)
+        {
+            yield return ProcessTwitchCommand(rule3Answer);
+        }
+
+        else if (rule4)
+        {
+            yield return ProcessTwitchCommand("hold 7");
+        }
+
+        else if (rule5)
+        {
+            yield return ProcessTwitchCommand("press 4444444444");
+        }
+
+        else if (Rule6())
+        {
+            yield return ProcessTwitchCommand("press 4 at 0 10 20 30 40 50");
+        }
+
+        else if (Rule7())
+        {
+            yield return ProcessTwitchCommand("press " + rule7Answer);
+        }
+
+        else if (Rule8())
+        {
+            yield return ProcessTwitchCommand(GetRule8TPAnswer());
+
+        }
+
+        else
+        { 
+            yield return ProcessTwitchCommand("press 4");
+        }
+    }
+
+    private string GetRule1TPAnswer()
+    {
+        string command = "black ";
+
+        int digit = (Bomb.GetSerialNumberLetters().ToString().ToUpper().Last() - 64) % 5;
+
+        switch (digit)
+        {
+            case 0:
+                command += "hold 1";
+                break;
+
+            case 1:
+                command += "black tap wait 1 tap";
+                break;
+
+            case 2:
+                command += "tap wait 1 hold 1";
+                break;
+
+            case 3:
+                command += "hold 1 hold 1";
+                break;
+
+            default:
+                command += "hold 2";
+                break;
+
+        }
+
+        command += "wait 1";
+
+        return command;
+    }
+
+    private string GetRule8TPAnswer()
+    {
+        string[] arr = rule8Answer.Select(x => x.ToString()).ToArray();
+
+        return "press " + string.Join("", arr);
+    }
 }
