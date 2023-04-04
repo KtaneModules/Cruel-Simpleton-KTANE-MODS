@@ -279,7 +279,13 @@ Prefab:
       propertyPath: m_Name
       value: TheSimpleton
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 114823302907343094, guid: 96fce2fb06efec841a56ed989b0d7284,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 114823302907343094, guid: 96fce2fb06efec841a56ed989b0d7284, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 96fce2fb06efec841a56ed989b0d7284, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &928192627

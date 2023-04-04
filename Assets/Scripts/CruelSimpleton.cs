@@ -11,8 +11,6 @@ using Rnd = UnityEngine.Random;
  * TO DO: 
  * -AUTO SOLVER
  * --Unicorn
- * --Rule 5
- * --Rule 6
  * --Rule 7
  * --Rule 8
  * --Rule 9
@@ -1647,7 +1645,7 @@ public class CruelSimpleton : MonoBehaviour {
             yield return ProcessTwitchCommand("hold 7");
             yield return ProcessTwitchCommand("press 4444444444");
             yield return ProcessTwitchCommand("press 4 at 0 10 20 30 40 50");
-            yield return ProcessTwitchCommand("press " + rule7Answer);
+            yield return ProcessTwitchCommand("press " + (rule7Answer + 1));
             yield return ProcessTwitchCommand(GetRule8TPAnswer());
             yield return ProcessTwitchCommand("press 4");
         }
@@ -1684,7 +1682,7 @@ public class CruelSimpleton : MonoBehaviour {
 
         else if (Rule7())
         {
-            yield return ProcessTwitchCommand("press " + rule7Answer);
+            yield return ProcessTwitchCommand("press " + (rule7Answer + 1));
         }
 
         else if (Rule8())
