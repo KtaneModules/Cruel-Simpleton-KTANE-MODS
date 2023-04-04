@@ -1494,7 +1494,7 @@ public class CruelSimpleton : MonoBehaviour {
 
 
 #pragma warning disable 414!
-    private readonly string TwitchHelpMessage = @"For black hole, use `!{0} black` followed by `hold #` to hold the button # number of tick down, `wait #` to wait # ticks, and `press` to tap and immediately release. Commands be chained with a space in between. For morse code, use !{0} followed by . and -. Ex .- = A. Chain codes with a space between. For section presses, use !{0} press followed by the number of the section. Use !{0} press 1 at 30 to press the section at 30 seconds. Sections can be chained with no spaces between. Times can be chained with spaces between.";
+    private readonly string TwitchHelpMessage = "For black hole, use \"!{0} black\" followed by \"hold #\" to hold the button # number of tick down, \"wait #\" to wait # ticks, and \"press\" to tap and immediately release. Commands be chained with a space in between. For morse code, \"use !{0}\" followed by \".\" and \"-\". Ex .- = A. Chain codes with a space between. For section presses, use \"!{0} press\" followed by the number of the section. Use \"!{0} press 1 at 30\" to press the section at 30 seconds. Sections can be chained with no spaces between. Times can be chained with spaces between. Use \"!{0} hold #\" to hold the button for # seconds.";
 #pragma warning restore 414
 
    IEnumerator ProcessTwitchCommand (string Command) 
@@ -1665,8 +1665,6 @@ public class CruelSimpleton : MonoBehaviour {
         {
             //check to see if the player added time at the end
 
-            blueButton.OnInteract();
-
             int sec;
 
             if (commandArr.Length == 1 || !int.TryParse(commandArr[1], out sec))
@@ -1675,6 +1673,7 @@ public class CruelSimpleton : MonoBehaviour {
                 yield break;
             }
 
+            blueButton.OnInteract();
             
             yield return new WaitUntil(() => Math.Abs(rule4EndingTime - rule4StartingTime) >= sec);
 
@@ -1714,7 +1713,7 @@ public class CruelSimpleton : MonoBehaviour {
                 }
 
                 //wait for break
-                yield return new WaitUntil(() => submitting >= breakThreshold  );
+                yield return new WaitUntil(() => submitting >= breakThreshold);
 
             }
 
