@@ -12,7 +12,6 @@ using Rnd = UnityEngine.Random;
  * -AUTO SOLVER
  * --Unicorn
  * --Rule 1
- * --Rule 2
  * --Rule 3
  * --Rule 4
  * --Rule 5
@@ -1414,8 +1413,6 @@ public class CruelSimpleton : MonoBehaviour {
 
         int num;
 
-        Debug.Log(Command);
-
         List<int> times = new List<int>();
 
         //pressing section
@@ -1701,13 +1698,18 @@ public class CruelSimpleton : MonoBehaviour {
         { 
             yield return ProcessTwitchCommand("press 4");
         }
+
+        while (!ModuleSolved)
+        {
+            yield return true;
+        }
     }
 
     private string GetRule1TPAnswer()
     {
         string command = "black ";
 
-        int digit = (Bomb.GetSerialNumberLetters().ToString().ToUpper().Last() - 64) % 5;
+        int digit = (Bomb.GetSerialNumberLetters().Last() - 64) % 5;
 
         switch (digit)
         {
@@ -1716,11 +1718,11 @@ public class CruelSimpleton : MonoBehaviour {
                 break;
 
             case 1:
-                command += "black tap wait 1 tap";
+                command += "press wait 1 press";
                 break;
 
             case 2:
-                command += "tap wait 1 hold 1";
+                command += "press wait 1 hold 1";
                 break;
 
             case 3:
@@ -1733,7 +1735,7 @@ public class CruelSimpleton : MonoBehaviour {
 
         }
 
-        command += "wait 1";
+        command += " wait 1";
 
         return command;
     }

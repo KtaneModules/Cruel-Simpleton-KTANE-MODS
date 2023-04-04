@@ -298,10 +298,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 1957988987071098, guid: 194abf81695f0e84eb2b1caa5b294e61, type: 2}
-      propertyPath: m_Name
-      value: CruelSimpleton
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 194abf81695f0e84eb2b1caa5b294e61, type: 2}
   m_IsPrefabParent: 0
@@ -352,7 +348,7 @@ Prefab:
         type: 2}
       propertyPath: EdgeworkConfiguration
       value: 
-      objectReference: {fileID: 11400000, guid: 3ca63008ba208fb41affeefced354eeb,
+      objectReference: {fileID: 11400000, guid: 561149f51534459459085d9052c39af9,
         type: 2}
     - target: {fileID: 114848120511536268, guid: 8814ea52310d2614a9feda02ec355ae4,
         type: 2}

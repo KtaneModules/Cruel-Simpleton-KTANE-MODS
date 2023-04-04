@@ -19,10 +19,10 @@ MonoBehaviour:
     Count: 2
     PortPlateType: 0
     DVIPort: 0
-    ParallelPort: 1
+    ParallelPort: 0
     PS2Port: 0
     RJ45Port: 0
-    SerialPort: 1
+    SerialPort: 0
     StereoRCAPort: 0
     ComponentVideoPort: 0
     CompositeVideoPort: 0
@@ -32,11 +32,11 @@ MonoBehaviour:
     ACPort: 0
     PCMCIAPort: 0
     CustomPorts: []
-    BatteryType: 1
+    BatteryType: 2
     BatteryCount: 0
     MinBatteries: 0
     MaxBatteries: 0
-    IndicatorLabel: 9
+    IndicatorLabel: 0
     CustomLabel: 
     IndicatorState: 0
     CustomQueryKey: 
