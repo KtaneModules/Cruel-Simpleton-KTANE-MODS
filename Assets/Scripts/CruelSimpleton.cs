@@ -1399,7 +1399,7 @@ public class CruelSimpleton : MonoBehaviour {
 
 
 
-#pragma warning disable 414!
+#pragma warning disable 414
     private readonly string TwitchHelpMessage = "For black hole, use \"!{0} black\" followed by \"hold #\" to hold the button # number of tick down, \"wait #\" to wait # ticks, and \"press\" to tap and immediately release. Commands be chained with a space in between. For morse code, \"use !{0}\" followed by \".\" and \"-\". Ex .- = A. Chain codes with a space between. For section presses, use \"!{0} press\" followed by the number of the section. Use \"!{0} press 1 at 30\" to press the section at 30 seconds. Sections can be chained with no spaces between. Times can be chained with spaces between. Use \"!{0} hold #\" to hold the button for # seconds.";
 #pragma warning restore 414
 
@@ -1600,6 +1600,14 @@ public class CruelSimpleton : MonoBehaviour {
                 }
             }
 
+            //morse was not expected
+            if (!(unicorn && unicornRuleNum == 3) || rule3Answer == null)
+            {
+                statusLightButton.OnInteract();
+                statusLightButton.OnInteractEnded();
+                yield break;
+            }
+
             foreach (string command in commandArr)
             {
                 foreach (char c in command)
@@ -1613,8 +1621,12 @@ public class CruelSimpleton : MonoBehaviour {
                     else
                     {
                         statusLightButton.OnInteract();
+
                         yield return new WaitUntil(() => dashOrDot > dotThreshold);
+
                         statusLightButton.OnInteractEnded();
+
+                        Debug.Log("Interact Ended");
                     }
                 }
 
@@ -1649,7 +1661,7 @@ public class CruelSimpleton : MonoBehaviour {
             yield return ProcessTwitchCommand("press 4 at 0 10 20 30 40 50");
 
 
-            yield return ProcessTwitchCommand("press " + (FindRule7Answer()));
+            yield return ProcessTwitchCommand("press " + FindRule7Answer());
 
             rule8Answer = FindRule8Answer();
 
