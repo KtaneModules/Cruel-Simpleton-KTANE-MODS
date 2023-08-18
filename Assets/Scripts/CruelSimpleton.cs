@@ -2,19 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using UnityEngine;
 using KModkit;
-using Rnd = UnityEngine.Random;
-
-/*
- * TO DO: 
- * -AUTO SOLVER
- * --Unicorn
- * --Rule 7
- * --Rule 8
- * --Rule 9
- */
 
 public class CruelSimpleton : MonoBehaviour {
 
@@ -1495,6 +1484,13 @@ public class CruelSimpleton : MonoBehaviour {
         //black hole
         else if (commandArr[0] == "BLACK")
         {
+            //not expecting black hole
+            if (!(unicorn && unicornRuleNum == 1) || rule1Answer == null)
+            {
+                blueButton.OnInteract();
+                blueButton.OnInteractEnded();
+                yield break;
+            }
             //BLACK MUST BE FOLLOWED BY A HOLD OR PRESS
             if (commandArr.Length == 1 || (commandArr[1] != "HOLD" && commandArr[1] != "PRESS"))
             {
@@ -1758,9 +1754,7 @@ public class CruelSimpleton : MonoBehaviour {
 
     private string GetRule8TPAnswer()
     {
-        string[] arr = rule8Answer.Select(x => x.ToString()).ToArray();
-
-        return "press " + string.Join("", arr);
+        return "press " + string.Join("", rule8Answer.Select(x => x.ToString()).ToArray());
     }
 
     private bool ValidNum(string num)
