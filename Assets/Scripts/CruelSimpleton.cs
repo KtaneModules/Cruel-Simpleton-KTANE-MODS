@@ -1485,10 +1485,11 @@ public class CruelSimpleton : MonoBehaviour {
         else if (commandArr[0] == "BLACK")
         {
             //not expecting black hole
-            if (!(unicorn && unicornRuleNum == 1) || rule1Answer == null)
+            if (!(unicorn && unicornRuleNum == 1) && rule1Answer == null)
             {
                 blueButton.OnInteract();
                 blueButton.OnInteractEnded();
+                Debug.Log("Black hole was not expected");
                 yield break;
             }
             //BLACK MUST BE FOLLOWED BY A HOLD OR PRESS
