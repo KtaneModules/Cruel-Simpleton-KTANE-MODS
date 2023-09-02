@@ -1598,7 +1598,7 @@ public class CruelSimpleton : MonoBehaviour {
             }
 
             //morse was not expected
-            if (!(unicorn && unicornRuleNum == 3) && rule3Answer == null)
+            if (!(unicorn && (unicornRuleNum == 2 || unicornRuleNum == 3)) && rule3Answer == null && !rule2)
             {
                 statusLightButton.OnInteract();
                 statusLightButton.OnInteractEnded();
