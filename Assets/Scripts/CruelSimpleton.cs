@@ -1597,10 +1597,11 @@ public class CruelSimpleton : MonoBehaviour {
             }
 
             //morse was not expected
-            if (!(unicorn && unicornRuleNum == 3) || rule3Answer == null)
+            if (!(unicorn && unicornRuleNum == 3) && rule3Answer == null)
             {
                 statusLightButton.OnInteract();
                 statusLightButton.OnInteractEnded();
+                Debug.Log("Morse Code was not expected");
                 yield break;
             }
 
@@ -1617,25 +1618,17 @@ public class CruelSimpleton : MonoBehaviour {
                     else
                     {
                         statusLightButton.OnInteract();
-
                         yield return new WaitUntil(() => dashOrDot > dotThreshold);
-
                         statusLightButton.OnInteractEnded();
-
-                        Debug.Log("Interact Ended");
                     }
                 }
 
                 //wait for break
                 yield return new WaitUntil(() => submitting >= breakThreshold);
-
             }
 
             //wait for more submission
             yield return new WaitUntil(() => submitting == 0);
-
-
-
         }
 
         else
