@@ -117,7 +117,7 @@ public class CruelSimpleton : MonoBehaviour {
     //rule 6 shoudln't apply
     private bool strikeAlreadyGiven;
 
-    Dictionary<string, string> morse = new Dictionary<string, string>()
+    readonly Dictionary<string, string> morse = new Dictionary<string, string>()
     {
         { ".-", "A" },
         { "-...", "B"},
@@ -698,7 +698,7 @@ public class CruelSimpleton : MonoBehaviour {
         {
             GetComponent<KMBombModule>().HandleStrike();
             Debug.LogFormat("[Cruel Simpleton #{0}] Strike! Pressed the button when rule 6 didn't apply", ModuleId);
-            strikeAlreadyGiven = false;
+            strikeAlreadyGiven = true;
             return;
         }
 
@@ -903,6 +903,7 @@ public class CruelSimpleton : MonoBehaviour {
 
             if (rule8Input.Last() != rule8Answer[index])
             {
+                strikeAlreadyGiven = true;
                 GetComponent<KMBombModule>().HandleStrike();
 
                 string input = "";
