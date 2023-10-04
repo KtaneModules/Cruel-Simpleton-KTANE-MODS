@@ -1402,8 +1402,14 @@ public class CruelSimpleton : MonoBehaviour {
         List<int> times = new List<int>();
 
         //pressing section
-        if (commandArr[0] == "PRESS" && ValidNum(commandArr[1]))
+        if (commandArr[0] == "PRESS")
         {
+            if (commandArr.Length == 1 || !ValidNum(commandArr[1]))
+            {
+                yield return "sendtochaterror The command \"Press\" must be followed a number section";
+                yield break;
+            }
+
             //pressing section at a certain time
             if (commandArr.Length > 3 && commandArr[2] == "AT")
             {
