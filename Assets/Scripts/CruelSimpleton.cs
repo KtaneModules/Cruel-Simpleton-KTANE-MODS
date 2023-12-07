@@ -1487,10 +1487,10 @@ public class CruelSimpleton : MonoBehaviour {
                 }
             }
 			
-            //can only press multiple sections with no spaces
+            //command did not match any valid press formats
             else
             {
-                yield return string.Format("sendtochaterror Exclude spaces to press multiple sections");
+                yield return string.Format("sendtochaterror Invalid command");
             }
         }
 
