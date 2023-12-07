@@ -1458,7 +1458,7 @@ public class CruelSimpleton : MonoBehaviour {
             }
 
             //press multiple sections
-            else
+            else if (commandArr.Length == 2)
             {
                 char invalidChar = '\0';
                 try
@@ -1485,6 +1485,12 @@ public class CruelSimpleton : MonoBehaviour {
                         case 4: blueButton.OnInteract(); break;
                     }
                 }
+            }
+			
+            //can only press multiple sections with no spaces
+            else
+            {
+                yield return string.Format("sendtochaterror Exclude spaces to press multiple sections");
             }
         }
 
