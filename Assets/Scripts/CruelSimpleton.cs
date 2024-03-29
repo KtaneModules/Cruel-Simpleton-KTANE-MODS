@@ -299,14 +299,6 @@ public class CruelSimpleton : MonoBehaviour {
                 timeOffset = 2;
             }
         }
-
-        if (rule4Started && !ModuleSolved)
-        {
-            rule4StartingTime += Time.deltaTime;
-
-            Debug.Log("Current Time Held: " + string.Format("{0:0.00}", Math.Abs(rule4EndingTime - rule4StartingTime)));
-            
-        }
     }
 
     void FixedUpdate()
@@ -484,6 +476,15 @@ public class CruelSimpleton : MonoBehaviour {
                     submitting = 0;
                 }
             }
+        }
+
+        if (rule4Started && !ModuleSolved)
+        {
+            rule4StartingTime += Time.deltaTime;
+
+            if (Application.isEditor)
+                Debug.Log("Current Time Held: " + string.Format("{0:0.00}", Math.Abs(rule4EndingTime - rule4StartingTime)));
+
         }
     }
 
