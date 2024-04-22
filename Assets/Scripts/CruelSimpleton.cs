@@ -47,9 +47,8 @@ public class CruelSimpleton : MonoBehaviour {
 
     private List<int> rule8Input;
 
-    //time the user started holding down and releasing the button for rule 4
-    private float rule4StartingTime;
-    private float rule4EndingTime;
+    //total time the user held down the button for rule 4
+    private float rule4Time;
 
     private bool rule4Started;
 
@@ -477,14 +476,16 @@ public class CruelSimpleton : MonoBehaviour {
                 }
             }
         }
+    }
 
-        if (rule4Started && !ModuleSolved)
+    private IEnumerator Rule4Hold()
+    {
+        while (rule4Started)
         {
-            rule4StartingTime += Time.deltaTime;
-
+            rule4Time += Time.deltaTime;
             if (Application.isEditor)
-                Debug.Log("Current Time Held: " + string.Format("{0:0.00}", Math.Abs(rule4EndingTime - rule4StartingTime)));
-
+                Debug.Log("Current Time Held: " + string.Format("{0:0.00}", rule4Time));
+            yield return null;
         }
     }
 
@@ -645,9 +646,9 @@ public class CruelSimpleton : MonoBehaviour {
 
         if (rule4Active || unicorn4Active)
         {
-            rule4StartingTime = Time.time;
-            rule4EndingTime = rule4StartingTime;
+            rule4Time = 0;
             rule4Started = true;
+            StartCoroutine(Rule4Hold());
             return;
         }
 
@@ -773,7 +774,7 @@ public class CruelSimpleton : MonoBehaviour {
 
         rule4Started = false;
 
-        float deltaTime = Math.Abs(rule4EndingTime - rule4StartingTime);
+        float deltaTime = rule4Time;
 
         string time = string.Format("{0:0.#}", deltaTime);
 
@@ -1592,7 +1593,7 @@ public class CruelSimpleton : MonoBehaviour {
 
             blueButton.OnInteract();
             
-            yield return new WaitUntil(() => Math.Abs(rule4EndingTime - rule4StartingTime) >= sec);
+            yield return new WaitUntil(() => rule4Time >= sec);
 
             blueButton.OnInteractEnded();
         }
