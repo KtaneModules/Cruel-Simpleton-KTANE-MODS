@@ -1486,6 +1486,7 @@ public class CruelSimpleton : MonoBehaviour {
                         case 3: bottomRightSection.OnInteract(); break;
                         case 4: blueButton.OnInteract(); break;
                     }
+                    yield return null;
                 }
             }
 			
